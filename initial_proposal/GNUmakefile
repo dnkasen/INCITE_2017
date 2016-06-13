@@ -1,12 +1,15 @@
 SOURCES := summary.tex \
            narrative.tex \
+           sneIa.tex xrb.tex ccsne.tex xrb.tex \
+           objectives.tex \
+           readiness.tex \
            milestones.tex \
            personnel.tex \
            publications.tex \
            management.tex \
 
 
-PDFs := $(SOURCES:.tex=.pdf)
+PDFs := summary.pdf narrative.pdf milestones.pdf personnel.pdf publications.pdf management.pdf
 ALL: $(PDFs) merged.pdf
 
 
@@ -17,7 +20,7 @@ narrative.pdf: narrative.tex refs.bib newcommands.tex
 	pdflatex $<
 
 %.pdf: %.tex
-	pdflatex $<	
+	pdflatex $<
 	pdflatex $<
 	pdflatex $<
 
@@ -27,11 +30,9 @@ merged.pdf: $(PDFs)
 
 print-%: ; @echo $* is $($*)
 
-clean: 
+clean:
 	$(RM) *.aux *.log *.blg *.bbl *.out
 
 realclean: clean
 	$(RM) $(SOURCES:.tex=.pdf)
 	$(RM) *-eps-converted-to.pdf
-
-
