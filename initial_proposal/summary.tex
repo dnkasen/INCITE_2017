@@ -1,0 +1,135 @@
+\documentclass[11pt,letterpaper,english]{article}
+\usepackage[T1]{fontenc} % Standard package for selecting font encodingsamely titles, headers and contents
+\usepackage{txfonts} % makes spacing between characters space correctly
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
+%\usepackage[pagestyles,raggedright]{titlesec} % related with sections—n
+%\usepackage{blindtext} % To create text
+\usepackage{fancyhdr} % header footer placement
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
+\usepackage{graphicx}  % Essential for adding images to you document.
+
+\usepackage{sectsty}
+\sectionfont{\normalsize}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\normalsize \it}
+
+\usepackage{caption}
+\captionsetup{labelsep=period}
+
+\input newcommands
+
+\pagestyle{fancy} % allows you to use the header and footer commands
+
+%\raggedright
+\begin{document}
+
+%\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+
+\pagestyle{fancy} \lhead{Approaching Exascale Models of Astrophysical Explosions} \rhead{PI: Zingale} \renewcommand{%
+\headrulewidth}{0.0pt}
+
+\begin{center}
+\bf {PROJECT EXECUTIVE SUMMARY} 
+\end{center}
+%
+\begin{flushleft}
+\textbf{Title}: Approaching Exascale Models of Astrophysical Explosions %\smallskip
+
+\textbf{PI and Co-PI(s)}: M.~Zingale (PI); A.~S.~Almgren, J.~B.~Bell, A.~C.~Calder, 
+A.~Jacobs, D.~Kasen, M.~P.~Katz, C.~M.~Malone, \& S.~E.~Woosley %\smallskip
+
+\textbf{Applying Institution/Organization}: Stony Brook University %\smallskip
+
+\textbf{Number of Processor Hours Requested}: 80 Mh (year 1), 111 Mh (year 2), 122 Mh (year 3) %\smallskip
+
+\textbf{Amount of Storage Requested}: 800 TB (year 1), 900 TB (year 2), 1 PB (year 3) %\smallskip
+
+\end{flushleft}
+%
+%% The executive summary should accurately describe the proposed research
+%% and the high-impact scientific or technical advances you will realize
+%% with the proposed INCITE allocation. Industry organizations should
+%% also summarize the potential economic or strategic business impact of
+%% the proposed research.\\
+%
+\vskip -0.5em
+
+\noindent {\bf Executive Summary:} We propose to carry out a 
+comprehensive study of two classes of thermonuclear-powered stellar
+explosions involving compact objects, Type Ia supernovae (SNe Ia) and
+X-ray bursts (XRBs), using the state-of-the-art multiphysics simulation codes
+\maestro\ and \castro.  This work builds upon the successes of our
+current INCITE campaign while shifting the focus to exciting new problems.
+
+SNe Ia are the thermonuclear explosion of a white dwarf (a compact
+stellar remnant up to 1.4 times more massive than the Sun but the size
+of the Earth). There are several progenitor systems proposed to meet 
+the observational constraints
+on SNe Ia: the Chandrasekhar-mass white dwarf model; the
+sub-Chandrasekhar mass white dwarf model (sub-Ch); and the 
+merger of two white dwarfs. In the three years of this proposal, 
+we will focus on the latter two models, complementing 
+the study of the Chandrasekhar-mass model undertaken during our 
+current INCITE award.  This shift in focus mirrors that of the field, 
+responding to increasingly abundant observations showing the diversity 
+of SNe Ia explosions.
+
+The sub-Ch SNe Ia model involves the ignition of a surface
+helium layer and subsequent compression and explosion of the
+underlying white dwarf.  Many open questions remain about the
+viability of this model. If too much surface He is ignited,
+then iron-group elements will be over produced at the surface,
+and the resulting explosion will not look like an SNe Ia.  We also don't
+know under what conditions and in how many locations the ignition of the
+He begins. We will address these questions directly by modeling the
+final stages of convection before the explosion, the ignition, and the 
+subsequent explosion. The unique capabilities of our two simulation codes,
+described below, allow us to seamlessly model these
+three stages of the event.
+
+We will also consider the inspiral and merger of two white dwarfs
+as a model for SNe Ia.  There is a lot of potential variability in this
+model, since the white dwarf masses are likely unequal.  Our initial
+goal will be to explore a
+variety of initial configurations and understand the dynamics that
+ensues when the stars first make contact.
+We will determine whether the conditions that arise lead to an immediate
+detonation or whether the merged remnant needs to relax before the
+explosion occurs.
+
+XRBs occur on the surfaces of neutron stars, compact
+stars more extreme than white dwarfs---more mass than
+the Sun is packed into a star just 10~km in radius.  The extreme
+gravity at the surface compresses H/He fuel 
+accreted from a companion to the point of thermonuclear runaway.  
+The resulting X-ray burst releases a large amount of energy
+as H and He burn to heavier elements.
+These are repeating events, making them excellent probes of 
+neutron stars.  Most theoretical understanding of XRBs comes from
+1D, spherically-symmetric models, but
+as convection dominates the onset of the burning, a proper treatment
+requires 3D simulation.  We will perform the most
+detailed simulations of convective burning in XRBs, yielding a detailed
+picture of how the convection alters the nucleosynthesis and observables.
+
+Our simulations codes, \maestro\ and \castro, were designed
+specifically for the efficient modeling of astrophysical explosions.
+They are running on titan---the target of this proposal.
+The codes make excellent use of the multi-core architecture by using 
+a hybrid approach to parallelism (MPI and OpenMP), and we
+have made considerable progress in targeting the effective use of GPUs. 
+We will build on the already strong parallel performance of these codes
+by implementing new efficient algorithms for core solvers, building on our close collaboration 
+with the \boxlib\ group at
+LBNL.  Our collaboration has been together more than 10 years
+and includes core developers of the simulation codes along with
+the scientific expertise to analyze the simulations.  
+Finally, both codes are available to the public, and performance (or
+physics) improvements developed in the course of the
+proposed work will be made
+available to the community.
+
+
+
+\end{document}

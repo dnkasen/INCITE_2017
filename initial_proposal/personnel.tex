@@ -1,0 +1,166 @@
+\documentclass[11pt,letterpaper,english]{article}
+\usepackage[T1]{fontenc} % Standard package for selecting font encodings
+\usepackage{txfonts} % makes spacing between characters space correctly
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
+\usepackage{hyperref}  %The ability to create hyperlinks within the document
+
+\usepackage{fancyhdr} % header footer placement
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
+\usepackage{graphicx}   % Essential for adding images to you document.
+
+\usepackage[numbers]{natbib}
+
+%\usepackage{sectsty}
+%% \sectionfont{\normalsize}
+%% \subsectionfont{\normalsize}
+%\subsubsectionfont{\normalsize \it}
+
+\usepackage[small,compact]{titlesec}
+\titlespacing{\subsubsection}{0pt}{0.5em}{0.25em}
+\titlespacing{\subsection}{0pt}{0.5em}{0.5em}
+\titlespacing{\section}{0pt}{0.5em}{0.5em}
+\titlespacing{\paragraph}{0pt}{0.75em}{0.25em}
+
+\titleformat*{\subsubsection}{\itshape}
+
+
+\let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{%
+    \begin{oldthebibliography}{#1}%
+      \setlength{\parskip}{0.25ex}% 
+      \setlength{\itemsep}{0.25ex}% 
+  }%
+  {% 
+    \end{oldthebibliography}% 
+  }
+
+
+
+\usepackage{caption}
+\captionsetup{labelsep=period}
+
+\setlength{\parskip}{0.125\baselineskip}%
+%\setlength{\parindent}{0pt}%
+
+\input newcommands
+
+%\raggedright
+
+
+\begin{document}
+
+
+%\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+
+
+\pagestyle{fancy} 
+\lhead{Approaching Exascale Models of Astrophysical Explosions} 
+\rhead{PI: Zingale} \renewcommand{%
+\headrulewidth}{0.0pt}
+
+\begin{center}
+\bf {PERSONNEL JUSTIFICATION AND MANAGEMENT PLAN} 
+\end{center}
+
+
+\section{PERSONNEL JUSTIFICATION}
+
+%% What personnel are already in place and what are their roles on the
+%% project? If applicable, describe personnel that will be hired on the
+%% project in the future and their responsibilities. The INCITE program
+%% welcomes proposals from individual PIs or teams of collaborators.
+
+All personnel are in place.  Our team spans 4 institutions (Stony
+Brook, Los Alamos National Laboratory, Lawrence Berkeley National
+Laboratory, and UC Santa Cruz).  We have been collaborating together
+for more than 10 years on problems related to those proposed here.
+Furthermore, we (together will additional collaborators at these same
+institutions) represent the principal authors of the two simulation
+codes used here, \maestro\ and \castro.
+
+
+\begin{tightitem}
+\item {\bf Michael Zingale} will act as the lead for this project.  He
+  will collaborate on all of the science applications, work on
+  development and maintenance of the two simulation codes as needed
+  for this project, and run simulations of the XRB.
+
+\item {\bf Ann Almgren} will work on code development of both \maestro\
+  and \castro\ in support of the proposed problems.  She will also be
+  involved in the scientific analysis of the simulations proposed here.
+
+\item {\bf John Bell} will be the main contact with the \boxlib\ group
+  at LBNL.  We will work with John to incorporate performance
+  improvements into \maestro\ and \castro.  John will also directly be
+  involved in the scientific analysis of the simulations proposed
+  here.
+
+\item {\bf Alan Calder} will work primarily on the analysis and
+  simulation design of the \castro\ white dwarf merger simulations.
+  Alan will also be a lead on the ``extra'' exploratory applications
+  proposed here, particularly the URCA calculations.
+
+\item {\bf Adam Jacobs} is a SBU graduate student doing his thesis on
+  the sub-Chandra SNe Ia convection.  Adam will be the lead scientist
+  on this problem.  Adam is also the lead developer of the GPU version
+  of the reaction networks.
+
+\item {\bf Dan Kasen} will perform post-processing radiation transfer
+  calculations on the explosion results with \sedona, generating
+  lightcurves and spectra.
+
+\item {\bf Max Katz} is a SBU graduate student doing his thesis on the
+  white dwarf merger problem with \castro.  Max will be the lead
+  scientist on this problem.  Max is also the lead developer of 
+  the GPU version of the equation of state.
+
+\item {\bf Chris Malone} will be the lead scientist on the XRB problem
+  with \maestro\ (Chris did his PhD thesis on \maestro\ XRB simulations
+  in 2D).  Chris will also assist in the reaction network development.
+
+\item {\bf Stan Woosley} will collaborate on all of the science
+  applications here and provide initial models and microphysics needed
+  for the proposed simulations and assist in the analysis.
+
+\end{tightitem} 
+
+\section{MANAGEMENT PLAN}
+
+We have been working together for over 10 years (you'll find many of
+the names here on the list of publications under the current INCITE
+award).  Although we identified leads for each of the science problems
+above, we will all be involved in the science analysis and we expect
+many of the CoIs here to be co-authors on the publications that result
+from the proposed simulations.
+Allocation of computing resources will primarily follow the breakdown 
+of time estimated in the narrative.  As we work closely together and are
+in frequent contact, we do not expect any tensions or issues with the 
+distribution of this time.
+
+For the code development, the SBU group travels to LBNL several times
+a year to plan the development path of \maestro\ and \castro, and we 
+make frequent contact with each other through e-mail and phone conferencing.
+All of the codes are managed by the git version control system and we
+use regular regression testing to ensure that the code continues to
+perform as expected while undergoing development.
+PI Zingale will be the primary contact dealing with the management of
+the award and preparing reports.  We expect that the graduate students
+here will take a lead role in presenting the results to the community
+at conferences, and to be the lead authors in the publications that result.
+
+%% Describe the project's leadership team and how decisions are made to
+%% allocate time to individuals or, for proposals with multiple
+%% collaborating teams, subgroups within the project. Describe the focus
+%% of each individual or subgroup. Successful proposals will include a
+%% management plan that conveys to reviewers the interrelationship
+%% between subgroups and how the sum of the parts will lead to scientific
+%% discovery or engineering solutions that are the overarching goal of
+%% the project. Also identify points of contact who will provide updates
+%% on the status of the work including publications, awards, and
+%% highlights of accomplishments.
+
+
+
+\end{document}

@@ -1,0 +1,136 @@
+%\documentclass[12pt,letterpaper,english]{article}
+\documentclass[11pt,landscape]{article}
+\usepackage[T1]{fontenc} % Standard package for selecting font encodingsamely titles, headers and contents
+\usepackage{txfonts} % makes spacing between characters space correctly
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
+%\usepackage[pagestyles,raggedright]{titlesec} % related with sections—n
+%\usepackage{blindtext} % To create text
+\usepackage{fancyhdr} % header footer placement
+
+\usepackage[landscape, top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
+\usepackage{graphicx}  % Essential for adding images to you document.
+
+\usepackage{sectsty}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\normalsize \it}
+
+\usepackage{caption}
+\captionsetup{labelsep=period}
+
+\renewcommand{\arraystretch}{1.2}
+
+\pagestyle{fancy} % allows you to use the header and footer commands
+
+\renewcommand\floatpagefraction{.95}
+\renewcommand\dblfloatpagefraction{.95} % for two column documents
+\renewcommand\topfraction{.95}
+\renewcommand\dbltopfraction{.95} % for two column documents
+\renewcommand\bottomfraction{.95}
+\renewcommand\textfraction{.05}   
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+\usepackage{colortbl}
+
+% multicolumn row coloring: http://www.latex-community.org/viewtopic.php?f=5&t=2565                                      
+\newcommand{\SetRowColor}[1]{\noalign{\gdef\RowColorName{#1}}\rowcolor{\RowColorName}}
+\newcommand{\mymulticolumn}[3]{\multicolumn{#1}{>{\columncolor{\RowColorName}}#2}{#3}}
+\definecolor{myGray}{rgb}{0.95,0.95,0.95}
+
+
+%\raggedright
+
+\input newcommands
+
+\begin{document}
+
+\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+
+\pagestyle{fancy} 
+\lhead{Approaching Exascale Models of Astrophysical Explosions} 
+\rhead{PI: Zingale} 
+
+\renewcommand{\headrulewidth}{0.0pt}
+
+
+\textbf{Proposal Title:} Approaching Exascale Models of Astrophysical
+Explosions 
+%
+\begin{table}[h]
+\centering
+%\caption{Table title}
+\vspace{-.35in}
+\label{Tab1}
+\begin{tabular}{p{6cm} p{11cm} p{4cm}} \\ \hline 
+\SetRowColor{myGray}\multicolumn{3}{l}{\textbf {Year 1}}\\ \hline 
+\textbf{Milestone} & \textbf{Details} & \textbf{Date and Status} \\ \hline 
+%
+Full star, high-resolution \maestro\ convection models in sub-Chandra WDs &
+20 moderate resolution runs + 5 high resolution runs exploring different
+initial conditions; all full star. &
+Summer 2015    \\ \hline 
+%
+Large domain \maestro\ XRB convection models &
+2 wide domain (30~m) models and several exploratory calculations
+looking at different initial models and nuclear physics.  & 
+Fall 2015  \\ \hline 
+%
+\castro\  multi-orbit inspiral and merger calculations of double
+degenerates &
+2 calculations with different initial conditions of WD orbit
+and inspiral. &
+End of 2015  \\ \hline 
+%
+\SetRowColor{myGray}\multicolumn{3}{l}{\textbf {Year 2}}\\ \hline
+%
+\maestro\ sub-Chandra SNe Ia models with large reaction networks &
+Follow-on calculations to year 1, but with much larger reaction networks
+on the GPUs.  &
+Spring 2016   \\ \hline 
+%
+\maestro\ XRB convection models with large reaction networks &
+Follow-on calculations to year 1, but some with larger domain (60~m wide),
+and all with bigger networks (run on GPUs) &
+End of 2016   \\ \hline 
+%
+\castro\ double degenerate mergers with nuclear physics  &
+Model the merged beyond first contact and incorporate nuclear burning. &
+Summer 2016    \\ \hline 
+%
+Exploratory \maestro\ URCA calculations &
+Full star calculations of URCA convection in a white dwarf. &
+Fall 2016 \\ \hline
+%
+\SetRowColor{myGray}\multicolumn{3}{l}{\textbf {Year 3}}\\ \hline
+%
+\maestro\ to \castro\ models of sub-Chandra SNe Ia &
+Follow the explosion of a sub-Ch event in \castro\ beginning with
+a \maestro\ model constructed in earlier years.  & 
+Summer 2017  \\ \hline 
+%
+More realistic \maestro\ sub-Chandra SNe Ia models &
+sub-Ch convection models using initial models from a stellar evolution
+code. & 
+Spring 2017 \\ \hline
+%
+Sensitivity study of XRB simulations (\maestro) &
+Explorations of different XRB initial models. &
+throughout 2017    \\ \hline 
+%
+Largescale XRB burning model with sub-grid burning &
+The first XRB models using a sub-grid model for the burning,
+enabling larger domains  &
+End of 2017  \\ \hline 
+%
+\castro\ white dwarf merger simulations with realistic initial conditions &
+WD merger calculations using realistic initial models from a stellar 
+evolution code. &
+Summer 2017 \\ \hline
+
+\end{tabular}
+\end{table}
+
+
+\end{document}

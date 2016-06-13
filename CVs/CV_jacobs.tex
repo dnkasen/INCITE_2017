@@ -1,0 +1,148 @@
+\documentclass[11pt,letterpaper,english]{article}
+\usepackage[T1]{fontenc} % Standard package for selecting font encodings
+\usepackage{txfonts} % makes spacing between characters space correctly
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
+%\usepackage{blindtext} % To create text
+%\usepackage{mdwlist} % mdwlist for compact enumeration/list items 
+%\usepackage[pagestyles]{titlesec} % related with sections—namely titles, headers and contents
+\usepackage{fancyhdr} % header footer placement
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
+\usepackage{graphicx}   % Essential for adding images to you document.
+
+\usepackage{sectsty}
+\sectionfont{\large}
+\subsectionfont{\normalsize}
+\subsubsectionfont{\normalsize \it}
+
+\usepackage{caption}
+\captionsetup{labelsep=period}
+
+\usepackage{hyperref}
+
+\pagestyle{fancy} % allows you to use the header and footer commands 
+
+\raggedright
+\begin{document}
+
+\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+
+\pagestyle{fancy} \lhead{Michael Zingale} \rhead{Lead PI} \renewcommand{%
+\headrulewidth}{0.0pt}
+
+
+\thispagestyle{plain}
+
+\centering {\bf Curriculum Vitae: Adam Jacobs}\\
+{Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794-3800} \smallskip
+{{\it phone:}~(501) 326-8316 \hskip 2mm
+{\it e-mail:}~Adam.Jacobs@stonybrook.edu \hskip 2mm \\[-0.25em]
+{\it web:}~\url{http://www.astro.sunysb.edu/amjacobs/}}
+
+\begin{flushleft} {\bf Professional Preparation}
+{\parindent 16pt
+
+PhD in Physics with Astronomy Concentration, Stony Brook University (2015, expected)\\ 
+BA in Physics, \emph{summa cum laude}, Hendrix College (2009)\\ 
+BA in Computer Science, \emph{summa cum laude}, Hendrix College (2009)\\ 
+}
+
+\vspace{.04in}
+{\bf Appointments}
+{\parindent 16pt
+
+2010--present: {\em Research Assistant}, Stony Brook University \\ 
+2009--2010: {\em Teaching Assistant}, Stony Brook University \\ 
+Summer 2008:  {\em National Undergraduate Fellow}, Princeton Plasma Physics Laboratory \\ 
+2006--2008: {\em Research Assistant}, Hendrix College \\
+}
+
+\vspace{.04in}
+{\bf Publications Most Relevant to This Proposal}
+\vspace{-6pt}
+\begin{enumerate} \itemsep1pt \parskip0pt \parsep0pt
+\item {\it Low Mach Number Modeling of Convection in Helium Shells on
+      Sub-Chandrasekhar White Dwarfs. II. Ignition and Convection,} A.~M.~Jacobs,
+      M.~Zingale, A.~Nonaka, A.~S.~Almgren, J.~B.~Bell, {\em in prep}.
+
+\item {\it Low Mach Number Modeling of Double-Detonation Type Ia Ignition,} 
+      A.~M.~Jacobs, April 11$^{\mathrm{th}}$ 2014, Max Planck Institute for Astrophysics' 
+      XVII Workshop on Nuclear Astrophysics, Ringberg Castle Conference Site, Germany.
+  
+\item {\it Low Mach Number Modeling of Convection in Helium Shells on 
+      Sub-Chandrasekhar Mass White Dwarfs,} A.~M.~Jacobs, M.~Zingale, A.~Almgren, J.~Bell, A.~Nonaka,
+      S.~Woosley, May 13$^{\mathrm{th}}$ - 17$^{\mathrm{th}}$ 2013, Fifty-One Erg International 
+      Workshop, Raleigh, North Carolina.
+
+\end{enumerate} 
+
+\vspace{-6pt}
+{\bf Research Interests and Expertise}
+{\parindent 16pt
+
+  My research is driven by a fascination with the intersection of
+  high performance computing, numerical analysis, and nuclear astrophysics.  
+  
+  Numerically, I work to push the methods of computational hydrodynamics
+  to scale.  Doing so requires the development of algorithms and techniques
+  for effectively modeling larger problems and reducing communication costs.
+  My main effort now is to target nuclear reaction integrations at GPGPUs
+  like those in the Titan supercomputer.
+  
+  Astrophysically, I work to understand the Universe's violent thermonuclear
+  explosions associated with observations of transient events.  Currently,
+  I am investigating a promising progenitor model for Type Ia supernovae:
+  sub-Chandrasekhar double-detonations.  I am modeling the pre-explosive
+  convective phase and ignition in 3D using the low Mach number simulation
+  code Maestro.
+
+}
+
+\vspace{.04in}
+{\bf Synergistic Activities}
+\vspace{-6pt}
+\begin{enumerate} \itemsep1pt \parskip0pt \parsep0pt
+\item Contributing developer of the publicly-available low Mach number
+  hydrodynamics code Maestro,
+  \url{http://bender.astro.sunysb.edu/Maestro/} \\
+
+\item Contributing developer of the publicly-available adaptive mesh
+  refinement framework BoxLib,
+  \url{https://ccse.lbl.gov/BoxLib/} \\
+
+
+\item Participated in the 2013 
+  \href{http://extremecomputingtraining.anl.gov/}{Argonne Training Program on Extreme Scaling Computing} and the 
+  2013 \href{https://www.xsede.org/web/summerschool13/home}{International HPC Summer School}. \\
+
+\item Volunteer speaker at Greene Correctional Facility, Coxsackie, New York, 
+  presenting a talk entitled
+  {\em Cosmology: Precisely Calculating How Little We Know}. \\
+
+\item Mentor in the Adopt-a-Physicist program, connecting high school physics 
+  students across the United States with physics graduates. \\
+
+\item Co-administrator of the Diversity in Physics and Astronomy Facebook page,
+  boasting over 1000 members. \\
+
+\end{enumerate} 
+
+\vspace{-6pt}
+{\bf Collaborators ({\emph{past 5 years including name and current institution}})} 
+{\parindent 16pt
+
+Ann Almgren, Lawrence Berkeley National Lab\\
+Alan Calder, Stony Brook University\\
+Matthew Emmett, Lawrence Berkeley National Lab\\
+Mike Lijewski, Lawrence Berkeley National Lab\\
+Chris Malone, Los Alamos National Lab\\
+Bronson Messer, Oak Ridge National Lab, University of Tennessee-Knoxville\\
+Andy Nonaka, Lawrence Berkeley National Lab\\
+Stan Woosley, University of California-Santa Cruz
+
+}
+
+
+\end{flushleft}
+
+\end{document}

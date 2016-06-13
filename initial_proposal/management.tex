@@ -1,0 +1,155 @@
+\documentclass[11pt,letterpaper,english]{article}
+\usepackage[T1]{fontenc} % Standard package for selecting font encodings
+\usepackage{txfonts} % makes spacing between characters space correctly
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
+\usepackage{hyperref}  %The ability to create hyperlinks within the document
+
+\usepackage{fancyhdr} % header footer placement
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
+\usepackage{graphicx}   % Essential for adding images to you document.
+
+\usepackage[numbers]{natbib}
+
+%\usepackage{sectsty}
+%% \sectionfont{\normalsize}
+%% \subsectionfont{\normalsize}
+%\subsubsectionfont{\normalsize \it}
+
+\usepackage[small,compact]{titlesec}
+\titlespacing{\subsubsection}{0pt}{0.5em}{0.25em}
+\titlespacing{\subsection}{0pt}{0.5em}{0.5em}
+\titlespacing{\section}{0pt}{0.5em}{1.0em}
+\titlespacing{\paragraph}{0pt}{0.75em}{0.25em}
+
+\titleformat*{\subsubsection}{\itshape}
+
+
+\let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{%
+    \begin{oldthebibliography}{#1}%
+      \setlength{\parskip}{0.25ex}% 
+      \setlength{\itemsep}{0.25ex}% 
+  }%
+  {% 
+    \end{oldthebibliography}% 
+  }
+
+
+
+\usepackage{caption}
+\captionsetup{labelsep=period}
+
+\setlength{\parskip}{0.125\baselineskip}%
+%\setlength{\parindent}{0pt}%
+
+\input newcommands
+
+%\raggedright
+
+
+\begin{document}
+
+%\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+
+\pagestyle{fancy} 
+\lhead{Approaching Exascale Models of Astrophysical Explosions} 
+\rhead{PI: Zingale} \renewcommand{%
+\headrulewidth}{0.0pt}
+
+
+\begin{center}
+\bf {DATA MANAGEMENT}
+\end{center}
+
+
+%% \item Describe the data your research uses and generates.\\
+
+
+%% \item What is the effective lifetime of your useful data? Do your
+%% data storage requirements entail preserving data for weeks? Months?
+%% Years? \\
+
+Each simulation can output 100s of TB of data.  We need the ability to
+process all of this data at the end of a simulation, so we store the
+plotfiles to HPSS as they are created.  A single scientific study
+involves several simulations, and factoring in queue times on the
+machines, it can take a year to complete a study.  At that point we
+finish the analysis and write up a paper describing the results.  Once
+we get done with the refereeing process, it can be 1.5 years since a
+simulation began.  This defines the minimum timescale over which we
+need access to the data.
+
+%% \item What types of tools for data storage, compression
+%% (reduction), movement, and analysis do you currently use?\\
+
+To reduce our data footprint, we can store the plotfile data in single
+precision, and we keep only a minimum set of checkpoint files
+archived.  All of the analysis is done remotely, as the dataset is to
+large to transfer.  In addition to homegrown analysis tools and basic
+runtime diagnostics (global quantities at each timestep), we use
+\visit\ and, increasingly, \yt\ for our visualization.  This methodology
+has served well during our current INCITE allocation.
+
+There is another important aspect to our data management.  All of our
+codes are managed by version control (git) and we use regular
+regression testing to ensure that the code continues to give the same
+answers as it is developed.  Furthermore, our codes are publicly
+available and our output files store all the information needed to
+reproduce a simulation (the git hashes for all code, the build machine
+and directory, the build and run dates, number of processors and
+threads, the compiler versions and flags, and the values of all
+runtime parameters).  This gives us strong reproducibility of our
+results---in the event of data loss or if we wish to revisit a
+problem, all the information needed to reproduce a result is at hand.
+
+%% \item Do you share data? If yes, what mechanisms are employed? \\ 
+
+We have not encountered any requests for data from a simulation, but we
+do make available all of the setup files needed for the various simulations
+once the primary science papers are published (typically this is to allow
+for the graduate student whose project it is to complete their thesis).
+For example, al the setup, inputs, microphysics, and model files for the Chandra
+WD convection problem that was a focus of our current INCITE are part of the
+standard \maestro\ code distribution.
+
+%% \item What types of data management services would be useful to
+%% further enable your research?\\
+
+
+
+%% The Leadership Computing centers are combining their existing data
+%% efforts into an integrated LCF data strategy to meet the needs of the
+%% growing class of large data science problems for which the volume and
+%% velocity of the data require the resources available only at the
+%% LCF. As part of the discovery and requirements-gathering activity,
+%% your input will help steer the direction of resource acquisition,
+%% tools development, and policy decisions.
+
+%% A data management plan (DMP) describes how a project will manage the
+%% data generated through the course of research. It should address how
+%% data will be shared and preserved or explain why these goals are not
+%% applicable.
+
+%% The INCITE program plans to implement a requirement for a formal DMP
+%% as part of future proposals. A DMP is not currently required; however,
+%% for the 2015 INCITE Call for Proposals, please submit a short document
+%% (not to exceed 1 page) that describes your expected future data
+%% management strategies and needs.  Your summary should include comments
+%% on the following topics:
+
+
+%% \vspace{-.15in}
+%% \begin{itemize}
+
+
+
+
+
+
+%% \end{itemize} 
+%% \vspace{-.15in}
+
+
+\end{document}

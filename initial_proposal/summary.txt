@@ -1,0 +1,6 @@
+We will explore two classes of stellar explosions: Type Ia supernovae
+and X-ray bursts through high-resolution, multiphysics hydrodynamics
+simulations.  Our simulation codes, Maestro and Castro, are well-tuned
+to the OLCF titan machine, utilizing a hybrid approach to parallelism
+and beginning to offload time-consuming microphysics calculations to
+the GPUs.
