@@ -10,10 +10,14 @@ SOURCES := summary.tex \
 
 
 PDFs := summary.pdf narrative.pdf milestones.pdf personnel.pdf publications.pdf management.pdf
+
+PNGs := $(wildcard *.png)
+EPSs := $(wildcard *.eps)
+
 ALL: $(PDFs) merged.pdf
 
 
-narrative.pdf: narrative.tex $(SOURCES) refs.bib newcommands.tex
+narrative.pdf: narrative.tex $(SOURCES) $(PNGs) $(EPSs) refs.bib newcommands.tex
 	pdflatex $<
 	bibtex narrative
 	pdflatex $<
