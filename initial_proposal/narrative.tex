@@ -176,68 +176,27 @@ previous INCITE awards.  \MarginPar{number of papers}
 
 {\bf \maestro\ convection models}:
 %
-We completed our initial study of sub-Ch SNe Ia
-simulations~\cite{Zin13} with \maestro, and are currently writing up
-the results of our second study (led by graduate student co-I Jacobs).
-These are the only models in the world that have explored the dynamics
-of the convection in the accreted helium layer in a full-3D resolved
-simulation.  This study showed that \maestro\ presents a robust
-simulation platform for investigating the physics of ignition in the
-accreted helium layer.  Follow-on calculations have explored a range
-of WD and He-shell masses and what minimum mass is necessary for
-ignition.  A paper describing these results is in preparation.
 
-An original focus of our INCITE award was modeling the convection in
-Chandra mass white dwarfs leading up to an SNe Ia.  This has been
-completed and published in a series of
-papers in the Astrophysical Journal~\cite{Zingale:2011,Non12}.  We
-used AMR to greatly increase the resolution of
-our ignition simulations---this allowed us to explore the resolution
-dependence of our results.  We demonstrated that the ignition is most
-likely to take place off-center, around 50~km from the center of the
-white dwarf, and by following hotspots as they develop in the flow, we
-showed that ignition is likely only at a single point.  We
-characterized the turbulence in the convective region and showed that
-it follows Kolmogorov statistics.  Further, we measured its intensity
-and integral length scale and argued that it is unlikely to affect the
-flame propagation.
-
-Finally, we did the first simulation using \maestro\ convection
-results for a Chandra model SN Ia as initial conditions in \castro\ to
-model the subsequent explosion~\cite{Mal14}.  This ``end-to-end''
-capability is facilitated by the fact that the two codes share the
-same underlying \boxlib\ library.  This is the first 3D calculation of the 
-explosion phase in the 
-literature to begin with a self-consistent convective field.  This capability added to our understanding
-of how the convection affects the evolution of the explosion.  One of
-the results from this study was that the flame is unhindered by
-turbulent convection for typical ignition locations ($\sim 40$ km
-off-center), but is strongly distorted for more centrally-located
-ignition.  Even a perfect sphere ignited at the center of the star
-will be carried off-center by the turbulent convection.  This results
-in asymmetric explosions for all Chandra models, which should be
-accounted for when matching to observations.
+Adam's paper + results
 
 {\bf \castro\ WD merger models}:
 %
-A final focus of research under our current INCITE award, begun only
-recently, are the initial simulations of the WDWD problem.  \castro\ had not yet been deployed for problems of this type,
-and therefore required a number of algorithmic
-improvements, including new boundary conditions for the gravity solver
-and better treatment of the temperature in the hydrodynamics module.
-Titan was used for verification purposes by running simulations of the
-early part of a merger scenario, when the two WDs are orbiting each
-other at a large distance. In this case, the motion should remain
-stable, and as with all hydrodynamics codes, conservation of energy
-and angular momentum was paramount. We performed several large-scale
-simulations of these, checking various parts of the parameter space to
-ensure that we can robustly simulate these events. This helped us fix
-a number of underlying issues, and we are beginning production runs.
-We note that these calculations are different than those lead by the
-UCSC/UCB group above---they started with a merged remnant and then
-modeled the subsequent explosion.  In the work proposed here, we 
-will model the merger process itself.  This project is led by graduate
-student co-I Katz.
+
+Max's paper + results
+
+
+
+{\bf \maestro XRB modules}:
+
+XRB stuff
+
+
+
+{\bf GPU work}:
+
+OpenACC stuff
+
+
 
 
 \subsection{Significance of our proposed work}
@@ -245,16 +204,14 @@ student co-I Katz.
 To advance the state of the knowledge of SNe Ia and XRBs, we will
 carry out the following sets of simulations (all in 3D):
 \begin{tightitem}
+\item \castro\ simulations of white dwarf mergers
 \item Full star \maestro\ sub-Ch models with 
   detailed nucleosynthesis and realistic initial models.
-\item \castro\ sub-Ch explosion models beginning with the
-  \maestro\ initial conditions.
 \item The largest-domain-to-date 3D resolved \maestro\ XRB convection
   calculations.
-\item The first XRB convection calculations with a burning sub-grid
-  model.
-\item Highly-resolved \castro\ WDWD models capturing multiple orbits
-  and the inspiral.
+\item \castro\ simulations of burning fronts on neutron stars
+  as a model for XRB flame propagation
+\item \maestro\ simulations of convective Urca in white dwarfs
 \end{tightitem}
 
 We are the only group in the world modeling the detailed convection
@@ -263,8 +220,8 @@ In all simulations we will push the size of the nuclear reaction networks
 to accurately capture the nucleosynthesis (as discussed later, GPUs will
 be used for this task).
 
-XRBs are important probes of the nuclear equation of
-state~\cite{ozel:2010,steiner:2010}, and the nucleosynthesis that
+XRBs are important probes of the nuclear equation of \MarginPar{needs updating}
+state and the nucleosynthesis that
 takes place will involve the nuclei that are a target of the DOE FRIB
 experiment.  Our simulations will advance our understanding on the
 burning dynamics and tell us (1) whether any burning products can be
@@ -302,7 +259,7 @@ the foundation for \castro\ simulations capable of determining if the
 ignition evolves as a detonation and that detonation's subsequent
 evolution with realistic 3D initial conditions.
  
-Several groups are pursuing WDWD
+Several groups are pursuing WDWD \MarginPar{needs updating}
 mergers~\cite{yoon:2007,motl:2007,loren-aguilar:2009,shenetal+11} or
 collisions~\cite{raskinetal+10,loren-aguilar:2010,rosswog:2009}. The
 majority of these have used smoothed particle hydrodynamics (SPH), a

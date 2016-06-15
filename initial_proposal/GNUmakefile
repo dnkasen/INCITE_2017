@@ -1,6 +1,6 @@
 SOURCES := summary.tex \
            narrative.tex \
-           sneIa.tex xrb.tex ccsne.tex xrb.tex \
+           sneIa.tex xrb.tex ccsne.tex bwp.tex \
            objectives.tex \
            readiness.tex \
            milestones.tex \
@@ -13,7 +13,7 @@ PDFs := summary.pdf narrative.pdf milestones.pdf personnel.pdf publications.pdf 
 ALL: $(PDFs) merged.pdf
 
 
-narrative.pdf: narrative.tex refs.bib newcommands.tex
+narrative.pdf: narrative.tex $(SOURCES) refs.bib newcommands.tex
 	pdflatex $<
 	bibtex narrative
 	pdflatex $<
