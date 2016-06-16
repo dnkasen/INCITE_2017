@@ -188,13 +188,33 @@ Max's paper + results
 
 {\bf \maestro XRB modules}:
 
-XRB stuff
+We have completed the first-ever three-dimensional calculation of
+convection in the accreted layer on a neutron star as a model for the
+pre-explosion phase of an XRB.  This calculation modeled a small
+portion of the star (30~m on a side) with a mixed H/He layer,
+resolving the burning scales (6 cm resolution) and evolving 11
+isotopes describing hot-CNO burning and some branches to the
+rp-process.  We demonstrated that the convective layer becomes
+turbulent with a cascade that matches Kolmogorov isotropic turbulence.
 
 
 
 {\bf GPU work}:
 
-OpenACC stuff
+We continued to make substantial progress on offloading the
+microphysics in our codes to the GPUs using OpenACC.  Our focus is to
+put the nuclear reaction networks onto the GPUs, since they are local,
+compute-heavy, standalone physics solvers that take an appreciable
+amount of our runtime. Our strategy is to put the entire integration,
+the ODE timestepping driver and evaluation of the righthand-side and
+Jacobian onto the GPUs.  Previously we demonstrated a speed-up when
+using a simple network and a first-order backward-difference
+integration scheme.  This past year, we have worked closely with OLCF
+staff, including participating in a GPU hackathon, and have our
+high-order integrators working on the GPUs.  Our collaboration
+with OLCF continues, Co-I Jacobs will be traveling to OLCF next week
+to work on profiling on the GPUs to understand branching issues and
+further the optimization.
 
 
 

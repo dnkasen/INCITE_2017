@@ -30,7 +30,8 @@ narrative.pdf: narrative.tex $(SOURCES) $(PNGs) $(EPSs) refs.bib newcommands.tex
 
 merged.pdf: $(PDFs)
 	gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=merged.pdf -dBATCH $(PDFs) $(wildcard CVs/*.pdf)
-
+	@echo 
+	@echo a merged PDF of all the proposal material is available as merged.pdf
 
 print-%: ; @echo $* is $($*)
 
