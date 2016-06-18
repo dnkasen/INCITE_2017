@@ -131,40 +131,42 @@ feature prominently in the proposed work plan.
 
 \subsection{\maestro\ and \castro}
 
-The workhorses of the proposed work will be our state-of-the-art
-simulation codes \maestro~\cite{multilevel} and
-\castro~\cite{castro:I}, developed over the past 8 years in
+The XRB, BWP, and most of the SNe Ia work will be performed with our
+state-of-the-art simulation codes \maestro~\cite{multilevel} and
+\castro~\cite{castro:I}, developed over the past 10 years in
 collaboration with Lawrence Berkeley Lab.  \maestro\ is tuned to
 efficiently model the highly subsonic convective flows that often
-precede stellar explosions.  It accomplishes this by reformulating
-the equations of hydrodynamics, filtering the
-soundwaves from the equations of hydrodynamics, while keeping 
-the compressibility effects due to stratification and local heat release.
+precede stellar explosions.  It accomplishes this by reformulating the
+equations of hydrodynamics, filtering the soundwaves from the
+equations of hydrodynamics, while keeping the compressibility effects
+due to stratification and local heat release.  This allows it to take
+much larger timesteps than traditional compressible codes.
 \maestro\ has been used successfully to model the convection leading
-to ignition in the Chandra model for SNe Ia (a focus of our current
-INCITE allocation) and will continue to be used for the XRB and sub-Ch
-convection simulations proposed here.  \castro\ solves the fully
-compressible equations of hydrodynamics, allowing it to model shocks
-and explosive phenomena.  It will be the simulation code for the white
-dwarf merger simulations, and in later years, for the explosions
-following the convection phases modeled by \maestro.  \maestro\ and
-\castro\ share the underlying microphysics e.g., equation of state
-(EOS) and nuclear reaction networks, as well as the underlying
-\boxlib\ library that manages their adaptive mesh refinement (AMR)
-grid hierarchy.  This makes it straightforward to transition a problem
-from \maestro\ to \castro, as was done during our current INCITE
-allocation when studying flame propagation in Chandra model SNe
-Ia~\cite{Mal14}.  Both codes are already up and running on our target
-platform, titan (OLCF).  Additionally, both codes are publicly
-available%
-\footnote{\maestro: \url{http://bender.astro.sunysb.edu/Maestro/}}\fnsep\footnote{\castro: \url{https://ccse.lbl.gov/Downloads/downloadCASTRO.html}}---any
-performance or physics improvements developed under this INCITE award
-will become part of the public releases, benefiting the community
-at large.
+to ignition in the Chandra model for SNe Ia, and will continue to be
+used for the XRB, sub-Ch, and Urca convection simulations proposed
+here.  \castro\ solves the fully compressible equations of
+hydrodynamics, allowing it to model shocks and explosive phenomena.
+It will be the simulation code for the white dwarf mergers and flame
+spreading on XRBs.  Considerable development has been done during the
+current allocation period to allow \castro\ to accurate model gravity
+and rotation for a pair of WDs~\cite{katz:2016}.  In later years, \castro\
+will see a role in carrying our sub-Ch convection calculations into
+the explosion phase.  \maestro\ and \castro\ share the underlying
+microphysics e.g., equation of state (EOS) and nuclear reaction
+networks, as well as the underlying \boxlib\ library that manages
+their adaptive mesh refinement (AMR) grid hierarchy.  This makes it
+straightforward to transition a problem from \maestro\ to \castro, as
+was done during our previous INCITE allocation when studying flame
+propagation in Chandra model SNe Ia~\cite{Mal14}.  Both codes are
+already up and running on our target platform, titan (OLCF).
+Additionally, both codes are publicly available%
+\footnote{https://github.com/BoxLib-Codes}---any performance or
+physics improvements developed under this INCITE award will become
+part of the public releases, benefiting the community at large.
 
-\section{\flash}
+\subsection{\flash}
 
-\section{\chimera}
+\subsection{\chimera}
 
 
 \subsection{Work under previous INCITE awards}
