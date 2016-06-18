@@ -20,7 +20,7 @@
 \titlespacing{\section}{0pt}{0.5em}{0.25em}
 \titlespacing{\subsection}{0pt}{0.5em}{0.125em}
 \titlespacing{\subsubsection}{0pt}{0.5em}{0.25em}
-\titlespacing{\paragraph}{0pt}{0.75em}{0.25em}
+\titlespacing{\paragraph}{0pt}{0.5em}{0.5em}
 
 \setlength{\textfloatsep}{7pt}
 
@@ -129,7 +129,9 @@ feature prominently in the proposed work plan.
 \input bwp.tex
 
 
-\subsection{\maestro\ and \castro}
+\subsection{Application Codes}
+
+\subsubsection{\maestro\ and \castro}
 
 The XRB, BWP, and most of the SNe Ia work will be performed with our
 state-of-the-art simulation codes \maestro~\cite{multilevel} and
@@ -164,9 +166,9 @@ Additionally, both codes are publicly available%
 physics improvements developed under this INCITE award will become
 part of the public releases, benefiting the community at large.
 
-\subsection{\flash}
+\subsubsection{\flash}
 
-\subsection{\chimera}
+\subsubsection{\chimera}
 
 
 \subsection{Work under previous INCITE awards}
@@ -176,20 +178,27 @@ PI: Zingale; allocation on OLCF/titan) that focused on XRBs and SNe
 Ia.  Many of the current investigators have also collaborated on other
 previous INCITE awards.  \MarginPar{number of papers}
 
-{\bf \maestro\ convection models}:
+\paragraph{\maestro\ convection models.}
 %
+We completed an exhaustive study of convection in the He layer on  \MarginPar{Adam update}
+sub-Ch WD, exploring a range of initial models, from 0.8 to
+1.2~$M_\odot$, and a range of He layer masses.  These studies showed
+a wide-variety of outcomes, depending on the masses of the WD and He
+layer, ranging from a quasi-steady state to nova-like ignition over
+the entire layer, to localized ignition for the highest-mass WDs.  In
+all, over 50~Mh was used to model this suite of calculations---a level of
+computational power only achievable through INCITE.  The paper described
+these results has been accepted to the Astrophysical Journal~\cite{jacobs:2016}.
+Figure~\ref{fig:current-runs} shows a snapshot of one of these calculations.
 
-Adam's paper + results
-
-{\bf \castro\ WD merger models}:
+\paragraph{\castro\ WD merger models.}
 %
-
 Max's paper + results
 
 
 
-{\bf \maestro XRB modules}:
-
+\paragraph{\maestro\ XRB modules.}
+%
 We have completed the first-ever three-dimensional calculation of
 convection in the accreted layer on a neutron star as a model for the
 pre-explosion phase of an XRB.  This calculation modeled a small
@@ -201,8 +210,8 @@ turbulent with a cascade that matches Kolmogorov isotropic turbulence.
 
 
 
-{\bf GPU work}:
-
+\paragraph{GPU work.}
+%
 We continued to make substantial progress on offloading the
 microphysics in our codes to the GPUs using OpenACC.  Our focus is to
 put the nuclear reaction networks onto the GPUs, since they are local,
