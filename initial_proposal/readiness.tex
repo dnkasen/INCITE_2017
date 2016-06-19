@@ -123,11 +123,11 @@ target.  Only INCITE resources meet these needs.
 \includegraphics[width=0.49\linewidth]{titan_xrb_scaling}
 \includegraphics[width=0.49\linewidth]{edison-wdmerger-scaling.eps}
 \caption{\label{fig:scaling} (top left) \maestro\ strong scaling for
-  the XRB problem.  Two problem sizes are shown, with 
-  different domain decompositions and OpenMP
-  threads.  In each case, the time to advance the solution is the
-  average of 10 steps.  Comparing the two problem sizes shows the weak
-  scaling.  (right)
+  the XRB problem.  Two problem sizes are shown.  In each case, the
+  time to advance the solution is the average of 10 steps.  Comparing
+  the two problem sizes shows the weak scaling.  The turn-up at the
+  highest core count for each problem size is NUMA-related---going
+  from 1 MPI task per socket to 1 MPI task per node (right)
   \castro\ strong scaling for the initial (non-interacting) stage of
   the WDWD problem, run on the NERSC Edison machine.  This solves the
   full Poisson problem using multigrid with isolated boundary
@@ -345,6 +345,8 @@ to conserve space.
 
 
 \subsection{Developmental Work}
+
+\MarginPar{need Tom, Adam, and Max to discuss GPU microphysics, Max for GPU hydro, Brian for GPU MG, Weiqun for tiling}
 
 Both \maestro\ and \castro\ already scale well on titan and are
 capable of running the proposed science.  Nevertheless, we are
