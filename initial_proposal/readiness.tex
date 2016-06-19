@@ -120,23 +120,18 @@ target.  Only INCITE resources meet these needs.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.49\linewidth]{xrb_titan_scaling_by_grid}
-\includegraphics[width=0.49\linewidth]{castro_scaling} \\[0.5em]
+\includegraphics[width=0.49\linewidth]{titan_xrb_scaling}
 \includegraphics[width=0.49\linewidth]{edison-wdmerger-scaling.eps}
-\begin{minipage}[b]{0.5\linewidth}
 \caption{\label{fig:scaling} (top left) \maestro\ strong scaling for
   the XRB problem.  Two problem sizes are shown, with 
   different domain decompositions and OpenMP
   threads.  In each case, the time to advance the solution is the
   average of 10 steps.  Comparing the two problem sizes shows the weak
-  scaling.  (top right) \castro\ weak scaling on the titan-predecessor
-  jaguarpf for a SNe Ia explosion.  This has the same physics and
-  solvers as will be used for the sub-Ch explosions. (left)
+  scaling.  (right)
   \castro\ strong scaling for the initial (non-interacting) stage of
   the WDWD problem, run on the NERSC Edison machine.  This solves the
   full Poisson problem using multigrid with isolated boundary
   conditions.}
-\end{minipage}
 \end{figure}
 
 %% In year 1, the majority of our jobs will use \maestro, so we focused in
