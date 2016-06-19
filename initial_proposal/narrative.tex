@@ -81,14 +81,13 @@
 
 We propose a collaborative investigation of multiple types of stellar
 explosions and their precursors using a suite of state-of-the-art
-hydrodynamics codes.  Several progenitor models of Type Ia supernovae
-will be explored, including their pre-explosion and explosive phases,
-using our codes \maestro, \castro, and \flash.  X-ray bursts will also
-be studied in their pre-explosive and explosive phases, using
-\maestro\ and \castro.  The curious radiation-dominated systems like
-the black widow pulsar will be explored with \castro, and
-core-collapse supernovae will be studied using \chimera.  All
-calculations will be three-dimensional and face the challenges of
+hydrodynamics codes.  Several progenitor models of SNe Ia will be
+explored, including their pre-explosion and explosive phases, using
+our codes \maestro, \castro, and \flash.  XRBs will also be studied in
+their pre-explosive and explosive phases, using \maestro\ and \castro.
+The curious radiation-dominated systems like the BWP will be explored
+with \castro, and ccSNe will be studied using \chimera.  All
+calculations will be 3D and face the challenges of
 capturing the effects of turbulence, instabilities, strong
 gravitational interactions, nuclear reactions, and radiation.  These
 challenges make these problems INCITE-class, and only the resouces
@@ -98,9 +97,9 @@ the microphysics (reactions, equations of state) and in our shared
 approach to utilitizing the GPUs on titan.  This collaboration is an
 expansion of our existing INCITE proposal, but we believe that it
 represents the most efficient use of resources, allowing us to work
-together as a team to create portable solvers to effectively make
-use of this architecture and its successor.  These GPU-enabled
-solvers will be made freely available.
+together as a team to create portable solvers to effectively make use
+of this architecture and its successor.  These GPU-enabled solvers
+will be made freely available.
 
 Our publication record demonstrates that we have made productive use
 of our current INCITE award, and we expect similar productivity
@@ -246,17 +245,21 @@ further the optimization.
 
 \subsection{Significance of our proposed work}
 
-To advance the state of the knowledge of SNe Ia and XRBs, we will
-carry out the following sets of simulations (all in 3D):
+To advance the state of the knowledge of SNe Ia, XRBs, BWPs, and
+ccSNe, we will carry out the following sets of simulations (all in
+3D):
 \begin{tightitem}
-\item \castro\ simulations of white dwarf mergers
-\item Full star \maestro\ sub-Ch models with 
-  detailed nucleosynthesis and realistic initial models.
+\item \castro\ simulations of WD mergers and collisions.
+\item Full star \maestro\ sub-Ch models with detailed nucleosynthesis
+  and realistic initial models.
+\item \maestro\ simulations of convective Urca in white dwarfs
+\item \flash\ simulations of the explosion of sub-Ch model
 \item The largest-domain-to-date 3D resolved \maestro\ XRB convection
   calculations.
 \item \castro\ simulations of burning fronts on neutron stars
   as a model for XRB flame propagation
-\item \maestro\ simulations of convective Urca in white dwarfs
+\item \castro\ calculations of 
+\item a large-scale \chimera\ simulation of ccSNe
 \end{tightitem}
 
 We are the only group in the world modeling the detailed convection
