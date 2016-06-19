@@ -55,6 +55,44 @@ B.~Friesen, A.~Jacobs, D.~Kasen, M.~P.~Katz, C.~M.~Malone, B.~Messer, T.~Papathe
 %
 \vskip -0.5em
 
-\noindent {\bf Executive Summary:} 
+\noindent {\bf Executive Summary:} We propose a comprehensive study of
+stellar explosions using a suite of state-of-the-art application
+codes.  We will explore multiple progenitor models of Type Ia
+supernovae (SNe Ia), the physics of X-ray bursts (XRBs), the radiative
+ablation in black widow pulsars (BWP), and core-collapse supernovae.
+Our code suite already runs on titan at OLCF, and through this
+proposal, we will unify our efforts at utilizing the GPUs for
+accelerating the microphysics.
+
+Our simulations codes, \maestro\ and \castro, were designed
+specifically for the efficient modeling of astrophysical explosions.
+These codes will be used for the convection studies of the sub-Chandra
+model of SNe Ia, white dwarf mergers, and the convective Urca process,
+all of the XRB studies, and the studies of the BWP systems.  These
+codes make excellent use of the multi-core architecture by using a
+hybrid approach to parallelism (MPI and OpenMP), and we have made
+considerable progress in targeting the effective use of GPUs.  We will
+build on the already strong parallel performance of these codes by
+implementing new efficient algorithms for core solvers, building on
+our close collaboration with the \boxlib\ group at LBNL.  Our
+collaboration has been together more than 10 years and includes core
+developers of the simulation codes along with the scientific expertise
+to analyze the simulations.  Finally, both codes are available to the
+public, and performance (or physics) improvements developed in the
+course of the proposed work will be made available to the community.
+
+The ccSNe simulations will utilitize \chimera\ \MarginPar{Bronson add a few sentences here}
+
+Finally, some of the explosion calculations for sub-Chandra SNe Ia
+will utilitze \flash.
+
+A common theme in our simulations is the expense of the microphysics,
+in particular nuclear reaction networks.  All of our calculations
+require accurate models of the energy deposition from reactions, and a
+focus in this proposed period will be to utilize larger networks.
+This requires offloading the expensive rate operations to the GPU.  We
+have several efforts along this way already, and through this
+proposal, we will merge our efforts to produce a set of GPU-enabled
+community solvers for microphysics.
 
 \end{document}
