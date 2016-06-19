@@ -263,49 +263,49 @@ ccSNe, we will carry out the following sets of simulations (all in
 \end{tightitem}
 
 We are the only group in the world modeling the detailed convection
-with realistic nuclear physics in XRBs and the sub-Ch SNe Ia.
-In all simulations we will push the size of the nuclear reaction networks
-to accurately capture the nucleosynthesis (as discussed later, GPUs will
-be used for this task).
+with realistic nuclear physics in XRBs and the sub-Ch SNe Ia.  In all
+simulations we will push the size of the nuclear reaction networks to
+accurately capture the nucleosynthesis (as discussed later, GPUs will
+be used for this task).  
 
-XRBs are important probes of the nuclear equation of \MarginPar{needs updating}
-state and the nucleosynthesis that
-takes place will involve the nuclei that are a target of the DOE FRIB
-experiment.  Our simulations will advance our understanding on the
-burning dynamics and tell us (1) whether any burning products can be
-carried to the photosphere, altering the interpretation of
-observations; (2) how the full 3D treatment of convection modifies the
-nucleosythesis, allowing us to provide feedback to the 1D modelers;
-(3) how to create a sub-grid model to enable larger scale simulations;
-and (4) ultimately, in year 3 when we are able to implement a sub-grid
-model, start to learn how turbulence in the burning alters the
-spreading of the front across the neutron star.  With \maestro, we are
-in the unique position to address each of these points.
+XRBs are important probes of the nuclear equation of state and the
+nucleosynthesis that takes place will involve the nuclei that are a
+target of the DOE FRIB experiment, the top priority of the Office of
+Nuclear Physics.  In addition to modeling the early convective phase,
+We will perform the first fully-hydrodynamical calculations of the
+spreading of a flame front through a NS atmosphere.  Our simulations
+will advance our understanding on the burning dynamics and tell us (1)
+whether any burning products can be carried to the photosphere,
+altering the interpretation of observations; (2) how the full 3D
+treatment of convection modifies the nucleosythesis, allowing us to
+provide feedback to the 1D modelers; (3) how to create a sub-grid
+model to enable larger scale simulations; and (4) start to learn how
+turbulence in the burning alters the spreading of the front across the
+neutron star.  With \maestro\ and \castro, we are in the unique
+position to address each of these points.
 
 While several groups are investigating explosions in the sub-Ch model,
 we are the only group that is modeling the 3D convective field and
 ignition that precedes the explosion.  Much like our previous INCITE
 work in carrying \maestro\ convection calculations of the Chandra
-model into the explosion phase with \castro, our similar work here
-(proposed for year 3) for the sub-Ch model will be unmatched.
-Initially we will focus on using more realistic models of WDs
-generated from stellar evolution codes (we currently use simple
-parametrized models), and we will answer the question of which
-configurations (WD mass and He mass) lead to ignitions as well as the
-timing and geometry of this ignition.  Along the way we will switch
-from our simplified 4-isotope network to a more general in-situ
-network to better understand the sensitivity of our results to the
-nuclear physics, metallicity, and trace abundances of other species.
-In addition, we will complete our implementation of nucleosynthetic
-post-processing using Lagrangian tracer particles to allow offline
-exploration.  This is key, as the exact composition of the helium
-layer at detonation can have profound effects on the subsequent
-observations, impacting the model's viability as a SNe Ia
-progenitor~\cite{kromer:2010}.  All simulations will be 3D, and the
-vast majority will model the entire star.  These results will provide
-the foundation for \castro\ simulations capable of determining if the
-ignition evolves as a detonation and that detonation's subsequent
-evolution with realistic 3D initial conditions.
+model into the explosion phase with \castro, our similar work here for
+the sub-Ch model will be unmatched.  We will extend our current suite
+of calculations of convection in sub-Ch WDs to use more accurate
+reaction networks and realistic initial models.  We will also add
+better diagnostics, including using Lagrangian particles for tracing.
+Ultimately, we will answer the question of which configurations (WD
+mass and He mass) lead to detonations (not just ignition) and
+therefore are feasible models for SNe Ia.  The larger reaction network
+is is key, as the exact composition of the helium layer at detonation
+can have profound effects on the subsequent observations, impacting
+the model's viability as a SNe Ia progenitor~\cite{kromer:2010}.  All
+simulations will be 3D and model the entire star.
+
+Explosion calculations using \flash\ (and perhaps \castro\ using the
+\maestro\ models as starting conditions) will complement these studies
+to understand the explosion mechanism itself, informed from the
+details of the igniton location and timing we learn from the
+convection calculations.
  
 Several groups are pursuing WDWD \MarginPar{needs updating}
 mergers~\cite{yoon:2007,motl:2007,loren-aguilar:2009,shenetal+11} or
