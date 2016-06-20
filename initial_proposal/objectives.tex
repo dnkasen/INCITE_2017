@@ -1,4 +1,9 @@
-As described above, we plan a suite of comprehensive simulations of
+As described above, we plan a suite of comprehensive simulations of a
+large variety of stellar explosions: core-collapse and Type Ia
+supernovae, XRBs, and the curious black widow pulsars.  Our simulation
+codes are well-matched to these studies.  
+
+
 XRBs and SNe Ia (both the sub-Ch and WDWD models) using our
 codes \maestro\ and \castro.  All the problems we
 describe are inherently three-dimensional, requiring large resources.
@@ -43,20 +48,20 @@ run, we can base our time requests on existing simulations from titan
 (here Mh = mega-hours).  Also, there is a pattern to our milestones:
 one milestone for each of the major topics per year (XRBs, sub-Ch,
 WDWD, ...) with GPUs toward the end of the year, and the addition of 
-new physics in year 2.  \MarginPar{read this}
+new physics in years 2 and 3.  \MarginPar{read this}
 
 \begin{tightitem}
 \item {\bf Year 1: 115 Mh total }
 %
 \begin{tightitem}
-\item WD merger simulations (10 Mh)
-\item XRB convection calculations (15 Mh)
-\item XRB flame calculations (10 Mh)
-\item sub-Chandra convection calculations (10 Mh)
-\item sub-Chandra explosion calculations (10 Mh)
-\item BWP calculations (5 Mh)
-\item Urca calculations (5 Mh)
-\item ccSNe calculations (50 Mh)
+\item \castro\ WD merger and collision simulations using realistic networks (10 Mh)
+\item \maestro\ XRB convection calculations using large domains and realistic initial models (15 Mh)
+\item \castro\ XRB flame calculations studies, including the first-ever 3D calculation (10 Mh)
+\item \maestro\ sub-Chandra convection calculations (10 Mh)
+\item \flash\ sub-Chandra explosion calculations (10 Mh)
+\item \castro\ The first 3D radiation-hydro BWP calculations (5 Mh)
+\item \maestro\ Urca calculations (5 Mh)
+\item \chimera\ ccSNe calculations (50 Mh)
 \end{tightitem}
 %
 \item {\bf Year 2: 130~Mh total}
@@ -104,20 +109,79 @@ new physics in year 2.  \MarginPar{read this}
 \end{figure}
 
 
-{\bf SNe Ia simulations}:  
+\paragraph{SNe Ia simulations: }  
 
 
-{\bf XRB simulations}:
+\paragraph{XRB simulations: } Resolving the burning in our XRB simulations requires
+a resolution of 6 cm resolution.  Our current
+\maestro\ calculation~\cite{xrb-3d} used a 512$\times$512$\times$768
+grid, and required about 7.5 Mh on Titan.  As we showed in the paper
+describing these results, simulation, this is wide enough to get a
+good realization of the turbulent cascade in the convective region.
+Our next set of models will use a more realistic initial model, from
+the 1D studies of~\cite{woosley:2004}.  Our original calculations used
+a relatively high base density for the H/He layer ($2\times
+10^6~\gcc$).  This new model is better motivated physically, and also
+affords us the ability to compare to the 1D stellar evolution models
+to understand how the accurate 3D treatment of convection alters the
+dynamics.  We will also explore a large domain size---currently we
+model 31~m laterally on the neutron star surface---we'd like to
+explore a size closer to 50~m to see the development of more
+convective cells.  These will give a clear picture of the dynamics of
+the convection and allow us to answer the questions posed in the
+previous section: how does the convection alter the nucleosynthesis?
+and are ashes brought up to the surface where they can change the
+observables?
+
+Secondly, we want to explore larger networks.  This will be enabled by
+the GPU network, which should absorb the expense of a larger network.
+At the moment, we use a 10-isotope network that captures the hot-CNO H
+burning, 3-$\alpha$ He burning, and some links to heavier elements and
+the rp-process.  We've discussed networks of the size 25--40 nuclei
+with colleagues in the nuclear astrophysics community, and we believe
+that we can find an appropriate approximate network in that size
+range.  This will give us more realistic energetics, and allow us to
+get a better picture of the nucleosynthesis in the event.  We expect that
+the GPUs will mostly offset the cost of a larger network.
+
+The next line of development is to explore the propagation of the
+flame front through the H/He layer on the NS with \castro.  We are
+currently running exploratory 2D calculations here, and should be set
+to begin 3D calculations in year 1.  Rotation is essential here.
+These calculations begin by perturbing a region of the atmosphere,
+driving the burning that will eventually ignite a flame.  While
+diffusion spreads the heat to the unburned fuel, the absense of a
+laterial hydrostatic equilibrium in the partially-degenerate
+atmosphere drives a flow from the perturbed region across the star.
+Left unchecked, this will quench the burning.  It is the Coriolis
+force that retards this flow, setting up a geostrophic balance.  This
+scale, the Rossby length, is about 1~km in the star---on the edge of
+what we are able to resolve.  In contrast to the work
+of~\cite{cavecchi:2013}, we will model the vertical dynamics, with an
+eye toward understanding how turbulence affects the burning.  To make
+the simulations tractable, we will start with high rotation rates
+(which make the Rossby length smaller).  Over the 3-year course of the
+proposed work, we will work on expanding the domain, sub-grid models,
+and connecting these calculations to the \maestro\ convection
+simulations.
 
 
-{\bf CC SNe simulations}:
+\paragraph{ccSNe simulations: }
 
 
-{\bf BWP simulations}:
+\paragraph{BWP simulations: }  Our calculations of BWPs are just beginning.
+Our setup models the stellar companion (a low mass main-sequence star)
+and illuminates it with an intense radiation field coming through the
+boundary.  At the moment, we are doing using a gray flux-limited
+diffusion (FLD) solver of \castro, but over the course of this
+proposal, we will switch to multigroup FLD, and explore adding
+additional moments to the radiation field in \castro\ (in particular,
+the M1 approximation).  
 
-{\bf Post processing and observables}:  
+
+\paragraph{Post processing and observables: }
 %
-For the SNe Ia models that we bring to explosion, we will use the
+For the SNe Ia models that we bring to explosion, we will use the \MarginPar{Dan?}
 \sedona\ radiation transfer code to produce synthetic observables
 (lightcurves and spectra)---the \sedona\ author Dan Kasen is a Co-I on
 this proposal.  This post processing was done with many of the explosion 
@@ -126,7 +190,7 @@ workflow. We do not expect \sedona\ to require a lot of compute
 time for these models.
 
 
-{\bf Exploratory simulations}:
+\paragraph{Exploratory simulations: }
 %
 We are
 capable of modeling all phases of these explosive phenomena.  As a
