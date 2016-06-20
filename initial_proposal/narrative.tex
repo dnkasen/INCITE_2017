@@ -184,18 +184,20 @@ awards.  \MarginPar{Bronson: add a paragraph on accomplishments with
 
 \paragraph{\maestro\ sub-Ch convection models.}
 %
-We completed an exhaustive study of convection in the He layer
-on \MarginPar{Adam update} sub-Ch WD, exploring a range of initial
-models, from 0.8 to 1.2~$M_\odot$, and a range of He layer masses.
-These 3D \maestro\ calculations showed a wide-variety of outcomes,
-depending on the masses of the WD and He layer, ranging from a
-quasi-steady state to nova-like ignition over the entire layer, to
-localized ignition for the highest-mass WDs.  In all, over 50~Mh was
+We completed the broadest 3D study to date of convection in the He layer
+on sub-Ch WD, exploring a range of initial
+models: core masses from 0.8 to 1.2~$M_\odot$ each with a range of He layer masses.
+These 3D \maestro\ calculations showed a wide variety of outcomes:
+a quasi-steady state, nova-like runaway over the entire layer, and 
+localized thermonuclear runaway.  In all, over 70~Mh was
 used to model this suite of calculations---a level of computational
 power only achievable through INCITE.  The paper described these
 results has been accepted to the Astrophysical
 Journal~\cite{jacobs:2016}.  Figure~\ref{fig:current-runs} shows a
-snapshot of one of these calculations.
+snapshot of one of these calculations.  The next suite of calculations building
+off of the completed study is already underway in the current INCITE period.
+These calculations will be more computationally expensive as we require
+models of the full star as opposed to the previous study's focus on octants.
 
 \paragraph{\castro\ WDWD models.}
 %
@@ -235,13 +237,11 @@ Jacobian onto the GPUs.  Previously we demonstrated a speed-up when
 using a simple network and a first-order backward-difference
 integration scheme.  This past year, we have worked closely with OLCF
 staff, including participating in a GPU hackathon, and have our
-high-order integrators working on the GPUs.  Our collaboration
+high-order integrators working on the GPUs, including a production unit test
+demonstrating a 2x speedup versus perfect OpenMP (16 threads).  Our collaboration
 with OLCF continues, Co-I Jacobs will be traveling to OLCF next week
 to work on profiling on the GPUs to understand branching issues and
 further the optimization.
-
-
-
 
 \subsection{Significance of our proposed work}
 
