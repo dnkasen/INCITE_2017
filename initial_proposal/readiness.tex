@@ -451,21 +451,27 @@ titan today.
    \end{minipage}
 \end{figure}
 
-We are applying similar techniques to put our reaction networks on the
+Our nuclear reaction integration is also being redesigned to target
 GPUs.  For our XRB simulations, the reactions can represent a
 significant fraction of the runtime (up to 25\% with our current,
 small network).  Furthermore, we wish to use much larger networks to
 better capture the nucleosynthesis and energetics of the burning.  To
-facilitate this, we are in the process of changing the ODE integrator
-in \maestro\ from VODE to a vectorized implicit ODE integrator written
-by our colleagues at LBNL.  This will allow us to call the reaction
-network for a vector of zones and to put this entire operation onto
-the GPUs, much as we did for the EOS.  We expect to finish this work
-in the next month or two.  We note that a similar procedure of
-offloading the reactions to GPUs has been taken by other codes running
+facilitate this, we have added a new vectorized implicit ODE integrator to
+\maestro\ written in modern Fortran
+by our colleagues at LBNL.  We have successfully redesigned the integrator
+to run entirely on accelerators using OpenACC.  An initial, unoptimized 
+development version of a reactions unit test demonstrates a 2x speedup versus
+perfect OpenMP scaling.  We have been working closely with OLCF to bring this
+about and expect to be doing production science runs with GPU-accelerated
+reactions by the time INCITE 2017 allocations begin.  \MarginPar{Bronson, Tom:
+please review this paragraph}
+In this proposal we expand
+our collaboration to include scientists leading similar work on
+offloading reactions to GPUs for other codes running
 on titan (the Chimera core-collapse code~\cite{chimera-gpu} and the
-S3D combustion code~\cite{s3d}) and we have begun to make contact with
-our OLCF liaison about the strategies needed here.
+S3D combustion code~\cite{s3d}).  By combining this expertise we will expedite
+our acceleration efforts and design microphysics modules usable by a larger
+suite of state-of-the-art reactive hydrodynamics codes. 
 
 Finally we note that the porting of the microphysics to GPUs described
 here applies to both \maestro\ and \castro, and furthermore, we will
