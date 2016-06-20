@@ -1,148 +1,788 @@
-\documentclass[11pt,letterpaper,english]{article}
-\usepackage[T1]{fontenc} % Standard package for selecting font encodings
-\usepackage{txfonts} % makes spacing between characters space correctly
-\usepackage{xcolor} % Driver-independent color extensions for LaTeX and pdfLaTeX.
-%\usepackage{blindtext} % To create text
-%\usepackage{mdwlist} % mdwlist for compact enumeration/list items 
-%\usepackage[pagestyles]{titlesec} % related with sections—namely titles, headers and contents
-\usepackage{fancyhdr} % header footer placement
 
-\usepackage[top=1in, bottom=1in, left=1in, right=1in] {geometry} % Margins
-\usepackage{graphicx}   % Essential for adding images to you document.
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{sectsty}
-\sectionfont{\large}
-\subsectionfont{\normalsize}
-\subsubsectionfont{\normalsize \it}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{caption}
-\captionsetup{labelsep=period}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage{hyperref}
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[10pt]{article}
+\RequirePackage[T1]{fontenc}
 
-\pagestyle{fancy} % allows you to use the header and footer commands 
+% LaTeX will typeset using Computer Modern Roman, which a lot of
+% non-mathematicians and non-engineers won't like. Also, a few PDF
+% viewers may not render CMR very well. Instead, Times New Roman can
+% be used. That's what this package does.
+\usepackage{times}
 
-\raggedright
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+% (NOTE: This requires the times package above)
+%\renewcommand{\familydefault}{\sfdefault}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% This package helps LaTeX auto-hyphenate hyphenated words if you use
+% special hyphens. For example, bio\-/mimicry will properly hyphenate
+% ``mimicry'' if necessary.
+\usepackage[shortcuts]{extdash}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.2in,     % Length of section titles
+            marginparsep=.05in,       % Space between titles and text
+            margin=1in,               % 1 inch margins
+            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+%\usepackage[paper=a4paper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=30.5mm,    % Length of section titles
+%            marginparsep=1.5mm,       % Space between titles and text
+%            margin=25mm,              % 25mm margins
+%            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+% Provides special list environments and macros to create new ones
+\usepackage[shortlabels]{enumitem}
+%\usepackage{enumitem}
+
+% Simpler bibsections for CV sections
+% (thanks to natbib for inspiration)
+%
+% * For lists of references with hanging indents and no numbers:
+%
+%   \begin{bibsection}
+%       \item ...
+%   \end{bibsection}
+%
+% * For numbered lists of references (with hanging indents):
+%
+%   \begin{bibenum}
+%       \item ...
+%   \end{bibenum}
+%
+%   Note that bibenum numbers continuously throughout. To reset the
+%   counter, use
+%
+%   \restartlist{bibenum}
+%
+%   at the place where you want the numbering to reset.
+
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newlist{bibsection}{itemize}{3}
+\setlist[bibsection]{label=,leftmargin=\bibhang,%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\newlist{bibenum}{enumerate}{3}
+\setlist[bibenum]{label=[\arabic*],resume,leftmargin={\bibhang+\widthof{[999]}},%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\let\oldendbibenum\endbibenum
+\def\endbibenum{\oldendbibenum\vspace{-.6\baselineskip}}
+\let\oldendbibsection\endbibsection
+\def\endbibsection{\oldendbibsection\vspace{-.6\baselineskip}}
+\makeatother
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% HEADING AT TOP OF CURRICULUM VITAE
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[{\includegraphics[height=1.5in]{my_picture}}]{Your Name}
+%
+% the picture will be flush right across from the name. For this example
+% to work, make sure the extra set of curly braces is included. Also
+% makes ure that \usepackage{graphicx} is somewhere in the preamble.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+%%% SECTION HEADINGS
+
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \vspace{1.3\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+%%% LISTS
+
+% This macro alters a list by removing some of the space that follows the list
+% (is used by lists below)
+\newcommand*\fixendlist[1]{%
+    \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+% (they are used by lists below)
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+    \expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\def\item{\pagebreak[2]\oldItem}\csname preFixOuterList#1\endcsname}
+    \expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+    \expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+    \expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+    \setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+    \fixendlist{outerlist}
+    \fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+    \setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+    \fixendlist{lonelist}
+    \fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+    \setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+    \setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixendlist{loneinnerlist}
+    \fixinnerlist{loneinnerlist}
+
+%%% EXTRA SPACE
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+
+%%% FORMATTING MACROS
+
+% Provides a linked \doi{#1} that links doi:#1 to http://dx.doi.org/#1
+\usepackage{doi}
+% To change the text before the DOI, adjust this command
+%\renewcommand\doitext{doi:}
+
+% Provides a linked \url{#1} that doesn't require escape characters
+\usepackage{url}
+
+% You can adjust the style \url{} uses here:
+% (options are: same, rm, sf, tt; defaults to tt)
+\urlstyle{same}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+% (uncomment to typeset the e\-/mail address in typewriter font;
+%  otherwise, will be typeset in the \urlstyle above)
+%\DeclareUrlCommand\emaillink{\urlstyle{tt}}
+\providecommand*\emaillink[1]{\nolinkurl{#1}}
+\providecommand*\email[1]{\href{mailto:#1}{\emaillink{#1}}}
+
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+% Custom hyphenation rules for words that LaTeX has trouble with
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er Media-Wiki}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Begin CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
+\makeheading{Adam M.~Jacobs}
 
-\setlength{\parindent}{0in} % Amount of indentation at the first line of a paragraph.
+\section{Contact Information}
+% NOTE: Mind where the & separators and \\ breaks are in the following
+%       table. Table is one row made up of three parboxes. The left
+%       parbox has address info, the middle parbox has a vertical bar,
+%       and the right parbox has phone and electronic contact
+%       information.  Be sure to match # in #\baselineskip of the
+%       middle parbox to the # of lines in the longest of the left
+%       and right parboxes.
+%
+% MACROS: \rcollength is the width of the right column of the table
+%             (adjust it to your liking; default is 1.85in).
+%         \spacewidth is width of area between left and right boxes.
+%
+\newlength{\rcollength}\setlength{\rcollength}{2.20in}%
+\newlength{\spacewidth}\setlength{\spacewidth}{18pt}
+%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength-\spacewidth}@{}p{\spacewidth}@{}p{\rcollength}}%
+% Address box
+\parbox{\textwidth-\rcollength-\spacewidth}{%
+Research Assistant \\
+\href{http://www.physics.sunysb.edu/Physics/}{Department of Physics \& Astronomy}\\
+\href{http://www.stonybrook.edu/}{Stony Brook University}\\
+Stony Brook, New York 11794-3800 USA \\
+US Citizen} &
+% Uncomment to add a vertical bar in middle of contact information
+%{\vrule width 0.5pt}
+\parbox[m][5\baselineskip]{\spacewidth}{} &
+%
+% Non-snail-mail contact information
+\parbox{\rcollength}{%
+%\textit{Mobile:} +1-501-326-8316 \\
+\textit{E-mail:} \email{adam.jacobs@stonybrook.edu}\\
+\textit{WWW:} \href{http://www.amjacobs.net}{http://www.amjacobs.net}}
 
-\pagestyle{fancy} \lhead{Michael Zingale} \rhead{Lead PI} \renewcommand{%
-\headrulewidth}{0.0pt}
+\end{tabular}
+
+%%
+%% In modern CV's, it seems like ``Objective'' is frowned upon. Instead,
+%% incorporate it into a well-constructed cover letter. The ``More
+%% information'' can go at the end of the CV, but it should not distract
+%% from the section giving references available to contact.
+%%
+%
+% \section{Objective}
+%
+% Placement in an academic position (i.e., faculty, postdoctoral, or
+% research scientist) that allows for advanced research in distributed
+% complex adaptive systems (i.e., modeling, analysis, design, and
+% verification) with a particular focus on the control of engineered
+% agents (e.g., for communications, control, software, electronics, and
+% sustainability) and the analysis of biological phenomena (e.g.,
+% self-organization, ecological rationality)
+% \begin{innerlist}
+% \item More information and auxiliary documents can be found at\\\url{http://www.tedpavlic.com/facjobsearch/}
+% \end{innerlist}
+
+\section{Education}
+
+\textbf{Stony Brook University} \hfill {August 2016 (Expected)}
+
+Stony Brook, NY
+
+Ph.D.~in Physics (with a concentration in Astronomy)
+
+Thesis: \emph{Low Mach Number Modelling of Helium Shells on Sub-Chandrasekhar Mass White Dwarfs}
+
+Advisor: Dr.~Michael Zingale
+
+\halfblankline
+
+\textbf{Hendrix College} \hfill {May 2009}
+
+Conway, AR
+
+B.A.~in Physics (with distinction) and Computer Science (with distinction) \\
+\emph{summa cum laude}
 
 
-\thispagestyle{plain}
+%\begin{outerlist}
+%
+%\item[] Ph.D.,
+%        Physics (Astronomy Concentration)
+%        %\begin{innerlist}
+%        %\item Thesis Topic: \emph{Design and Analysis of Optimal
+%        %    Task-Processing Agents}
+%        %%\item Thesis Proposal: \emph{Cooperative Task Processing}
+%        %\item Candidacy: \emph{Research
+%        %    Problems in Distributed Control for Energy Systems}
+%        %\item Adviser:
+%        %      \href{http://www.ece.osu.edu/~passino/}
+%        %           {Professor Kevin M.~Passino}
+%        %\item Area of Study: Control Engineering
+%        %\end{innerlist}
 
-\centering {\bf Curriculum Vitae: Adam Jacobs}\\
-{Department of Physics and Astronomy, Stony Brook University, Stony Brook, NY 11794-3800} \smallskip
-{{\it phone:}~(501) 326-8316 \hskip 2mm
-{\it e-mail:}~Adam.Jacobs@stonybrook.edu \hskip 2mm \\[-0.25em]
-{\it web:}~\url{http://www.astro.sunysb.edu/amjacobs/}}
+%\item[] M.S.,
+%        \href{http://www.ece.osu.edu/}
+%             {Electrical and Computer Engineering}, August 2007
+%        \begin{innerlist}
+%        \item Thesis Topic: \emph{Optimal Foraging Theory Revisited}
+%        \item Adviser:
+%              \href{http://www.ece.osu.edu/~passino/}
+%                   {Professor Kevin M.~Passino}
+%        \item Area of Study: Control Engineering
+%        \end{innerlist}
+%
+%\item[] B.S.,
+%        \href{http://www.ece.osu.edu/}
+%             {Electrical and Computer Engineering}, June 2004
+%        \begin{innerlist}
+%        \item \emph{Magna cum Laude}, With Honors in Engineering
+%        \item Electrical specialization (emphasis on electromagnetics and digital computers)
+%        \item Minor in \href{http://www.cse.ohio-state.edu/}
+%                            {Computer and Information Systems}
+%              (programming and algorithms)
+%        \end{innerlist}
 
-\begin{flushleft} {\bf Professional Preparation}
-{\parindent 16pt
+%\end{outerlist}
 
-PhD in Physics with Astronomy Concentration, Stony Brook University (2015, expected)\\ 
-BA in Physics, \emph{summa cum laude}, Hendrix College (2009)\\ 
-BA in Computer Science, \emph{summa cum laude}, Hendrix College (2009)\\ 
+\section{Research Interests}
+
+\textbf{Nuclear astrophysics:} type Ia supernovae, type I X-ray bursts, 
+nucleosynthesis in high energy astrophysics
+
+
+\textbf{Computational astrophysics:} low Mach hydrodynamics, computational fluid dynamics, 
+3D multi-physics simulations, nuclear reaction networks, high performance computing,
+GPGPU and co-processor programming
+
+\section{Experience}
+
+\textbf{Research Assistant}, Stony Brook University \hfill {August 2010 to present}
+\begin{innerlist}
+
+    \item[] Nuclear Astrophysics Group
+    \item[] December 2011-Present Advisor: Dr.~Michael Zingale
+    \item[] August 2010-December 2011 Advisors: Drs.~Alan Calder and James Lattimer
+    \item[] Area of Study: Nuclear and Computational Astrophysics
+
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Session Instructor}, Stony Brook University \hfill {February 2015, 2016}
+\begin{innerlist}
+
+    \item[] WSE 187 Introduction to Research: Computational Science and Engineering
+
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Teaching Assistant}, Stony Brook University \hfill {August 2009 to May 2010}
+\begin{innerlist}
+
+    \item[] PHY 277 Computation for Physics and Astronomy
+
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Senior Capstone Project}, Hendrix College \hfill {August 2008 to May 2009}
+\begin{innerlist}
+
+    \item[] \emph{Implementing a Simple Research Cluster}
+    \item[] Advisor: Prof.~Derek Leonard
+    \item[] Explore cluster techniques, algorithms, and effectiveness through a C++
+            implementation of the MPI standard.
+
+\end{innerlist}
+
+\halfblankline
+
+\textbf{National Undergraduate Fellow}, Princeton Plasma Physics Laboratory \hfill {Summer 2008}
+\begin{innerlist}
+
+    \item[] \emph{The Impact of Correlations on MHD Equilibrium Reconstruction}
+    \item[] Advisors: Dr.~John Finn (Los Alamos National Lab) 
+            and Dr.~Lang Lao (General Atomics)
+    \item[] Compute and characterize correlations in magnetic data from the
+            DIII-D tokamak for various discharges. Understanding these correlations
+            can improve least squares reconstruction of MHD equilibrium profiles.
+\end{innerlist}
+
+\halfblankline
+
+\textbf{Research Assistant}, Hendrix College \hfill {Winter 2007-2008, Summer 2007, Summer 2006}
+\begin{innerlist}
+
+    \item[] \emph{Investigating Geophysical Phenomena Using a Large Ring Laser}
+    \item[] Advisor: Dr.~Robert Dunn
+    \item[] Implement a data analysis pipeline in LabVIEW for the analysis of experimental
+            data from a large ring laser gyroscope.
+\end{innerlist}
+
+\section{Publications}
+
+``Low Mach Number Modeling of Convection in Helium Shells on Sub-Chandrasekhar White Dwarfs
+II: Bulk Properties of Simple Models,''
+\textbf{A.~M.~Jacobs}, M.~Zingale, A.~Nonaka, A.~S.~Almgren, \& J.~B.~Bell,
+2016, accepted in \emph{Astrophysical Journal}
+
+\halfblankline
+
+\emph{In Progress}
+
+\halfblankline
+
+``OpenACC GPU accelerated microphysics in Maestro and Castro,'' 
+\textbf{A.~M.~Jacobs}, M.~P.~Katz, D.~Wilcox, M.~Zingale, C.~M.~Malone, 
+O.~Hernandez, \& W.~Zhang, 2016, in prep
+
+\halfblankline
+
+``Low Mach Number Modeling of Convection in Helium Shells on Sub-Chandrasekhar White Dwarfs
+III: Ignition in Simple Models,''
+\textbf{A.~M.~Jacobs}, M.~Zingale, A.~Nonaka, A.~S.~Almgren, \& J.~B.~Bell,
+2016, in prep for \emph{Astrophysical Journal}
+
+\halfblankline
+
+\section{Computational Allocations}
+INCITE 2015 award on OLCF's Cray XK7 Titan machine, 
+``Approaching Exascale Models of Astrophysical Explosions,'' M.~Zingale (PI), 
+A.~S.~Almgren, J.~B.~Bell, A.~C.~Calder, \textbf{A.~M.~Jacobs}, D.~Kasen,
+M.~P.~Katz, C.~M.~Malone, \& S.~E.~Woosley. (2015: 50 Mhr, 2016: 55 Mhr)
+ 
+\halfblankline
+
+\section{Presentations}
+
+``OpenACC Case Study: Accelerating Maestro's Reactions,'' 
+\textbf{A.~M.~Jacobs}, Michael Zingale, Oscar Hernandez, 
+May 24$^{\mathrm{th}}$-26$^{\mathrm{th}}$ 2016, OLCF User Meeting, 
+Oak Ridge National Lab, Oak Ridge, Tennessee.
+
+\halfblankline
+
+``Little Exploding Dwarfs and Nuclear Astrophysics on Compact Objects,'' 
+\textbf{A.~M.~Jacobs}, February 25$^{\mathrm{th}}$ 2016, JINA Seminar, Michigan
+State University, East Lansing, Michigan.
+
+\halfblankline
+
+``Bulk Properties and Ignition in Simple Models of Double Detonation Type Ia
+Progenitors,'' \textbf{A.~M.~Jacobs}, M.~Zingale, A.~Almgren, A.~Nonaka, J.~Bell, 
+June 1$^{\mathrm{st}}$ - 5$^{\mathrm{th}}$ 2015, Fifty-One Erg -- an international 
+workshop on the physics and observations of supernovae and supernova remnants, Raleigh, 
+North Carolina.
+
+\halfblankline
+
+``Helium Shells on Sub-Chandrasekhar White Dwarfs: Ignition and Convection,'' \textbf{A.~M.~Jacobs}, 
+M.~Zingale, A.~Nonaka, A.~Almgren, J.~Bell, January 5$^{\mathrm{th}}$ 2015, American Astronomical
+Society's 225$^{\mathrm{th}}$ Meeting, Seattle, Washington.
+
+\halfblankline
+
+``Low Mach Number Modeling of Double-Detonation Type Ia Ignition,'' \textbf{A.~M.~Jacobs}, April 11$^{\mathrm{th}}$ 2014, 
+Max Planck Institute for Astrophysics' XVII Workshop on Nuclear Astrophysics, Ringberg Castle Conference Site,
+Germany.
+
+\halfblankline
+
+``Low Mach Number Modeling of Convection in Helium Shells on Sub-Chandrasekhar Mass
+White Dwarfs,'' \textbf{A.~M.~Jacobs}, M.~Zingale, A.~Almgren, J.~Bell, A.~Nonaka,
+S.~Woosley, May 13$^{\mathrm{th}}$ - 17$^{\mathrm{th}}$ 2013, Fifty-One Erg -- an international 
+workshop on the physics and observations of supernovae and supernova remnants, Raleigh, 
+North Carolina.
+
+\halfblankline
+
+``The Impact of Correlations on MHD Equilibrium Reconstruction,'' \textbf{A.M.~Jacobs}, J.M.~Finn, 
+L.L.~Lao, E.J.~Strait, November 2008, Annual Meeting of the American Physical Society's
+Division of Plasma Physics, Dallas, Texas.
+
+\halfblankline
+
+``Using a Large Ring Laser Gyroscope to Understand the Torsional Components of
+Near-Field Seismic Events,'' \textbf{A.~M.~Jacobs}, April 2008, Annual April Meeting of the American 
+Physical Society, St.~Louis, Missouri.
+
+\halfblankline
+
+``Transformation and Analysis of Data from a Large Ring Laser,'' \textbf{A.~M.~Jacobs}, R.~Dunn, April 
+2007, Fifteenth Annual Arkansas Space Grant Symposium, Morrilton, Arkansas.
+
+\section{Awards \& Recognition}
+
+Junior Researcher Fellowship,                                  \hfill Fall 2014 - Present
+
+Stony Brook Institute for Advanced Computational Science
+
+\halfblankline
+
+Elected Member of Phi Beta Kappa \hfill Spring 2009
+
+\halfblankline
+
+Outstanding Undergraduate Poster Award, APS DPP Annual Meeting \hfill Fall 2008
+
+\halfblankline
+
+Barry M.~Goldwater Honorable Mention                           \hfill Spring 2008
+
+\halfblankline
+
+Outstanding Presentation Award, APS April Meeting              \hfill Spring 2008
+
+\halfblankline
+
+Hendrix College Dean's List                                    \hfill Fall 2005 - Spring 2008
+
+\halfblankline
+
+Barry M.~Goldwater Honorable Mention                           \hfill Spring 2007 
+
+\halfblankline
+
+Joe G.~Robbins Physics Award, Hendrix College                  \hfill Spring 2007 
+
+\halfblankline
+
+McHenry-Lane Freshman Mathematics Award, Hendrix College       \hfill Spring 2006 
+
+\halfblankline
+
+Arkansas Governor's Distinguished Scholarship,                 \hfill Spring 2005 
+
+Arkansas Department of Education
+
+\halfblankline
+
+Robert C. Byrd Scholarship, U.S. Department of Education       \hfill Spring 2005 
+
+
+\section{Workshops \& Training Programs}
+
+Oak Ridge National Lab GPU Hackathon: OpenACC, Knoxville Marriott, Knoxville, TN, 
+October 19$^{\mathrm{th}}$-23$^{\mathrm{rd}}$ 2015.
+
+\halfblankline
+
+Argonne Training Program on Extreme-Scale Computing,
+Pheasant Run Resort/Argonne National Laboratory, July 28$^{\mathrm{th}}$-August 9$^{\mathrm{th}}$ 2013.
+
+\halfblankline
+
+XSEDE, PRACE, and RIKEN International Summer School on HPC Challenges in Computational Sciences,
+New York University, June 23$^{\mathrm{rd}}$-28$^{\mathrm{th}}$ 2013.
+
+\halfblankline
+
+INT Program INT-11-2b, ``Astrophysical Transients: Multi-Messenger Probes of Nuclear Physics,''
+Institute for Nuclear Theory, University of Washington, July 2011.
+
+\section{Education \& Public Outreach}
+
+``(Super)Computing the Stars,''       \hfill December 5$\mathrm{th}$, 2014
+
+Stony Brook Astronomy Open Night, Stony Brook, New York. 
+
+\halfblankline
+
+``Cosmology: Precisely Calculating How Little We Know,''       \hfill Spring 2014
+
+Volunteer Speaker at Greene Correctional Facility, Coxsackie, New York. 
+
+\halfblankline
+
+Adopt-a-Physicist Mentor,                                       \hfill Fall 2012
+
+\href{http://www.adoptaphysicist.org/}{http://www.adoptaphysicist.org/} \hfill Spring 2011
+
+\newpage
+
+
+\section{References}
+
+\newlength{\collength}\setlength{\collength}{3.50in}%
+\newlength{\spacewidthB}\setlength{\spacewidthB}{5pt}
+%
+\vspace{0.05in}
+\begin{tabular}[t]{@{}p{\collength-\spacewidthB}@{}p{\collength}}%
+%
+\parbox{\collength-\spacewidthB}{%
+Michael Zingale \\
+Department of Physics \& Astronomy \\
+Stony Brook University \\
+Stony Brook, New York 11794-3800 \\
+(631) 632-8225 \\
+michael.zingale@stonybrook.edu } &
+%
+%\parbox[m][4\baselineskip]{\collength-\spacewidthB}{%
+\parbox{\collength}{%
+Alan Calder \\
+Department of Physics \& Astronomy \\
+Stony Brook University \\
+Stony Brook, New York 11794-3800 \\
+(631) 632-1176 \\
+alan.calder@stonybrook.edu }
+
+\end{tabular}
+
+\vspace{0.1in}
+
+\begin{tabular}[t]{@{}p{\collength-\spacewidthB}@{}p{\collength}}%
+%
+\parbox{\collength-\spacewidthB}{%
+Ann Almgren \\
+Lawrence Berkeley National Laboratory \\
+1 Cyclotron Road \\
+Berkeley, California 94720 \\
+(510) 486-5758 \\
+ASAlmgren@lbl.gov } &
+%
+%\parbox[m][4\baselineskip]{\collength-\spacewidthB}{%
+\parbox{\collength}{%
+Robert W. Dunn \\
+Department of Physics \\
+Hendrix College \\
+1600 Washington Avenue \\
+Conway, Arkansas 72032 \\
+(501) 450-1234 \\
+dunn@hendrix.edu
+%Stanford Woosley \\
+%Department of Astronomy and Astrophysics \\
+%University of California at Santa Cruz \\
+%Santa Cruz, California 95064 \\
+%(831) 459-2976 \\
+%woosley@ucolick.org
 }
 
-\vspace{.04in}
-{\bf Appointments}
-{\parindent 16pt
-
-2010--present: {\em Research Assistant}, Stony Brook University \\ 
-2009--2010: {\em Teaching Assistant}, Stony Brook University \\ 
-Summer 2008:  {\em National Undergraduate Fellow}, Princeton Plasma Physics Laboratory \\ 
-2006--2008: {\em Research Assistant}, Hendrix College \\
-}
-
-\vspace{.04in}
-{\bf Publications Most Relevant to This Proposal}
-\vspace{-6pt}
-\begin{enumerate} \itemsep1pt \parskip0pt \parsep0pt
-\item {\it Low Mach Number Modeling of Convection in Helium Shells on
-      Sub-Chandrasekhar White Dwarfs. II. Ignition and Convection,} A.~M.~Jacobs,
-      M.~Zingale, A.~Nonaka, A.~S.~Almgren, J.~B.~Bell, {\em in prep}.
-
-\item {\it Low Mach Number Modeling of Double-Detonation Type Ia Ignition,} 
-      A.~M.~Jacobs, April 11$^{\mathrm{th}}$ 2014, Max Planck Institute for Astrophysics' 
-      XVII Workshop on Nuclear Astrophysics, Ringberg Castle Conference Site, Germany.
-  
-\item {\it Low Mach Number Modeling of Convection in Helium Shells on 
-      Sub-Chandrasekhar Mass White Dwarfs,} A.~M.~Jacobs, M.~Zingale, A.~Almgren, J.~Bell, A.~Nonaka,
-      S.~Woosley, May 13$^{\mathrm{th}}$ - 17$^{\mathrm{th}}$ 2013, Fifty-One Erg International 
-      Workshop, Raleigh, North Carolina.
-
-\end{enumerate} 
-
-\vspace{-6pt}
-{\bf Research Interests and Expertise}
-{\parindent 16pt
-
-  My research is driven by a fascination with the intersection of
-  high performance computing, numerical analysis, and nuclear astrophysics.  
-  
-  Numerically, I work to push the methods of computational hydrodynamics
-  to scale.  Doing so requires the development of algorithms and techniques
-  for effectively modeling larger problems and reducing communication costs.
-  My main effort now is to target nuclear reaction integrations at GPGPUs
-  like those in the Titan supercomputer.
-  
-  Astrophysically, I work to understand the Universe's violent thermonuclear
-  explosions associated with observations of transient events.  Currently,
-  I am investigating a promising progenitor model for Type Ia supernovae:
-  sub-Chandrasekhar double-detonations.  I am modeling the pre-explosive
-  convective phase and ignition in 3D using the low Mach number simulation
-  code Maestro.
-
-}
-
-\vspace{.04in}
-{\bf Synergistic Activities}
-\vspace{-6pt}
-\begin{enumerate} \itemsep1pt \parskip0pt \parsep0pt
-\item Contributing developer of the publicly-available low Mach number
-  hydrodynamics code Maestro,
-  \url{http://bender.astro.sunysb.edu/Maestro/} \\
-
-\item Contributing developer of the publicly-available adaptive mesh
-  refinement framework BoxLib,
-  \url{https://ccse.lbl.gov/BoxLib/} \\
+\end{tabular}
 
 
-\item Participated in the 2013 
-  \href{http://extremecomputingtraining.anl.gov/}{Argonne Training Program on Extreme Scaling Computing} and the 
-  2013 \href{https://www.xsede.org/web/summerschool13/home}{International HPC Summer School}. \\
 
-\item Volunteer speaker at Greene Correctional Facility, Coxsackie, New York, 
-  presenting a talk entitled
-  {\em Cosmology: Precisely Calculating How Little We Know}. \\
-
-\item Mentor in the Adopt-a-Physicist program, connecting high school physics 
-  students across the United States with physics graduates. \\
-
-\item Co-administrator of the Diversity in Physics and Astronomy Facebook page,
-  boasting over 1000 members. \\
-
-\end{enumerate} 
-
-\vspace{-6pt}
-{\bf Collaborators ({\emph{past 5 years including name and current institution}})} 
-{\parindent 16pt
-
-Ann Almgren, Lawrence Berkeley National Lab\\
-Alan Calder, Stony Brook University\\
-Matthew Emmett, Lawrence Berkeley National Lab\\
-Mike Lijewski, Lawrence Berkeley National Lab\\
-Chris Malone, Los Alamos National Lab\\
-Bronson Messer, Oak Ridge National Lab, University of Tennessee-Knoxville\\
-Andy Nonaka, Lawrence Berkeley National Lab\\
-Stan Woosley, University of California-Santa Cruz
-
-}
-
-
-\end{flushleft}
 
 \end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% End CV Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------%
+% The following is copyright and licensing information for
+% redistribution of this LaTeX source code; it also includes a liability
+% statement. If this source code is not being redistributed to others,
+% it may be omitted. It has no effect on the function of the above code.
+%----------------------------------------------------------------------%
+% Copyright (c) 2007, 2008, 2009, 2010, 2011 by Theodore P. Pavlic
+%
+% Unless otherwise expressly stated, this work is licensed under the
+% Creative Commons Attribution-Noncommercial 3.0 United States License. To
+% view a copy of this license, visit
+% http://creativecommons.org/licenses/by-nc/3.0/us/ or send a letter to
+% Creative Commons, 171 Second Street, Suite 300, San Francisco,
+% California, 94105, USA.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+% OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+% MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+% IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+% CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+% TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+% SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+%----------------------------------------------------------------------%
