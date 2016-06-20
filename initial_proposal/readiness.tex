@@ -1,24 +1,27 @@
 
 \section{COMPUTATIONAL READINESS}  
 
-\MarginPar{this needs to be updated / rewritten}
-
 %% Proposals will be assessed on the need for, readiness to use, and
 %% reasonableness of the request for resources. {\bf This section is
 %%   typically about 5 pages.}
 
-The proposed work uses two simulation codes: \maestro, a low Mach
-number hydrodynamics code suited to convective flows and \castro, a
-compressible hydrodynamics code designed for high Mach number flows.
-The two codes share a common framework, built around the
-\boxlib\ library.  We note that both of these codes are freely
+The proposed work uses a suite of simulation codes.  \maestro\ is a
+low Mach number hydrodynamics code suited to convective flows; \castro
+is a compressible radiation-hydrodynamics code designed for high Mach
+number flows.  These two codes share a common framework, built around
+the \boxlib\ library.  We note that both of these codes are freely
 available to the community and any improvements to their parallel
 performance based on the work proposed here will benefit all users of
-the codes.  The unique features of titan, in particular the GPUs on each
-node, are of critical importance to meeting the science goals proposed here---GPUs,
-will allow us to consider bigger networks. 
-We have proof-of-concept GPU results on titan already, and discuss our plans
-for finishing the implementation below.
+the codes.  A small set of calculations (explosive models of sub-Ch)
+will use \flash, a compressible hydrodynamics code, as these
+calculations are already implemented with \flash.  Finally, the
+core-collapse simulation proposed here will use \chimera, a
+compressible hydrodynamics code with ray-by-ray neutrino transport.
+The unique features of titan, in particular the GPUs on each node, are
+of critical importance to meeting the science goals proposed
+here---GPUs, will allow us to consider bigger networks.  We have
+microphysics code running on the titan GPUs already, and discuss our plans
+for furthering our performance below.
 
 
 \subsection{Use of Resources Requested}
@@ -40,17 +43,17 @@ for finishing the implementation below.
 %% \end{enumerate}
 %% \vspace{-.2in}
 
-Our list of large jobs to run along with detailed time estimates is given in
-the previous section.  In each case, the time estimates
-were computed based on actual runs of the proposed problem on titan.
-The convection jobs all share something in common---the need for long
-time-integration.  This means {\em many} trips through the queue (it's
-not uncommon to require 500 wallclock hours, broken up into may
-smaller segments).  With 10,000 cores, this is 5~Mh---a number
-representative of many of our jobs.  This will represent the typical
-job size for the base calculations.  The addition of bigger networks
-will push the base calculations up to larger core counts in subsequent
-years.
+Our list of large jobs to run along with detailed time estimates is
+given in the previous section.  In each case, the time estimates were
+computed based on actual runs of the proposed problem on titan---these
+problems are already running there.  The convection jobs all share
+something in common---the need for long time-integration.  This means
+{\em many} trips through the queue (it's not uncommon to require 500
+wallclock hours, broken up into may smaller segments).  With 10,000
+cores, this is 5~Mh---a number representative of many of our jobs.
+This will represent the typical job size for the base calculations.
+The addition of bigger networks will push the base calculations up to
+larger core counts in subsequent years.
 
 There are several large calculations each year when that will need more
 processors.  The biggest XRB runs will require 10,000s of cores.  We
