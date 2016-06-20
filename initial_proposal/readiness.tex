@@ -71,8 +71,8 @@ less active during the semester, but the graduate students will be running
 steadily throughout the year.
 
 
-\subsection{Leadership Classification}
-
+\paragraph{Leadership Classification: }
+%
 The job characteristics as described above are hundreds of hours on
 10k cores for our standard jobs and several 10,000s of cores (again
 for hundreds of hours) for our biggest jobs.  We are proposing 10s of
@@ -138,35 +138,36 @@ needs.
 %%   the data? Justify data storage needs that exceed 1 petabyte.
 %% \end{enumerate}
 
+\paragraph{\maestro\ and \castro: } 
+%
 \maestro\ decomposes the fluid state into a 1D radial hydrostatic base
 state and a perturbational Cartesian state.  A divergence constraint
 on the velocity field captures the compressibility due to background
 stratification and local heating/diffusion sources.  The resulting
 system allows for much larger time steps to be taken compared to
-corresponding compressible codes ($\sim 1/M$ larger), where $M$ is 
-the Mach number.
-The algorithm
-\cite{multilevel} utilizes a second-order accurate approximate
-projection method, developed first for incompressible flows.  Fluid
-quantities are advected using an unsplit Godunov method, with
-reactions incorporated via operator splitting.  The provisional
-velocities are then projected onto the space that satisfies the
-divergence constraint.  The projections involve elliptic solves,
-solving a variable-coefficient Poisson problem,
-computed using a multigrid algorithm.  AMR is
-used to achieve high spatial resolution.  \maestro\ is written primarily
-in Fortran 95 and is parallelized using MPI and OpenMP.  It is highly
-portable, and regularly runs at the OLCF, NERSC, and NCSA.
+corresponding compressible codes ($\sim 1/M$ larger), where $M$ is the
+Mach number.  The algorithm \cite{multilevel} utilizes a second-order
+accurate approximate projection method, developed first for
+incompressible flows.  Fluid quantities are advected using an unsplit
+Godunov method, with reactions incorporated via operator splitting.
+The provisional velocities are then projected onto the space that
+satisfies the divergence constraint.  The projections involve elliptic
+solves, solving a variable-coefficient Poisson problem, computed using
+a multigrid algorithm.  AMR is used to achieve high spatial
+resolution.  \maestro\ is written primarily in Fortran 95 and is
+parallelized using MPI and OpenMP.  It is highly portable, and
+regularly runs at the OLCF, NERSC, and NCSA.
 
 \castro~\cite{castro} is based on a compressible flow formulation in
 Eulerian coordinates and includes self-gravity and reaction networks.
 All \castro\ calculations will use AMR on a 3D Cartesian grid.  The
-hydrodynamics in \castro\ is based on the either unsplit piecewise
-linear (PLM) or piecewise parabolic method (PPM)~\cite{ppmunsplit} and
-is designed to work with a general convex equation of state.
-\castro\ supports Newtonian self-gravitational forces through either a
-simple monopole approximation or a full solution of the Poisson
-equation using geometric multigrid techniques.  The approach to AMR in
+hydrodynamics in \castro\ is based on the piecewise parabolic method
+(PPM)~\cite{ppmunsplit} and is designed to work with a general convex
+equation of state.  \castro\ supports Newtonian self-gravitational
+forces through either a simple monopole approximation or a full
+solution of the Poisson equation using geometric multigrid techniques.
+Radiation is incorporated into \castro\ using flux-limited diffusion,
+either in a gray approximation or multigroup.  The approach to AMR in
 \castro\ uses a nested hierarchy of logically-rectangular grids with
 simultaneous refinement of the grids in both space and time.  The
 integration algorithm on the grid hierarchy is a recursive procedure
@@ -174,30 +175,33 @@ in which coarse grids are advanced in time, fine grids are advanced
 multiple steps to reach the same time as the coarse grids and the data
 at different levels are then synchronized.  The synchronization for
 self-gravity is similar to the algorithm introduced by
-\cite{miniati-colella}.  
+\cite{miniati-colella}.
 
-Both \maestro\ and \castro\ uses a hybrid
-programming model based on MPI and OpenMP.  Distribution of grid
-patches to nodes using MPI provides a natural coarse-grained approach
-to distributing the computational work, while threading of loops over
-zones in a grid using OpenMP provides effective fine-grained parallelization.
-Both codes use the same interface to the EOS and 
-thermonuclear reaction networks.  This enables us to
+Both \maestro\ and \castro\ uses a hybrid programming model based on
+MPI and OpenMP.  For \castro, OpenMP uses tiling to efficiently scale
+to many-core architectures.  \MarginPar{tiling ref?}  Distribution of
+grid patches to nodes using MPI provides a natural coarse-grained
+approach to distributing the computational work, while threading of
+loops over zones in a grid using OpenMP provides effective
+fine-grained parallelization.  Both codes use the same interface to
+the EOS and thermonuclear reaction networks.  This enables us to
 switch from a low Mach number simulation with \maestro\ to a fully
 compressible simulation using \castro\ without changing the underlying
-physics.  
+physics.
 
-For analysis, \maestro\ and \castro\ dump out global
-diagnostics at each time step and plotfiles at regular intervals.  The
-visualization packages \visit\ and \yt\ have native support for the
-\boxlib\ file format.  We expect the largest simulations
-to output about 100--200 TB each in plotfiles, putting the storage needs at about
-800 TB in year 1, rising to 1 PB in year 3.  We will save plotfiles for as long as needed to finish the
-analysis and publication of the results.  Only a minimal set of checkpoint
-files will be archived.  Where possible, we will store output in single precision
-to conserve space.
+For analysis, \maestro\ and \castro\ dump out global diagnostics at
+each time step and plotfiles at regular intervals.  The visualization
+packages \visit\ and \yt\ have native support for the \boxlib\ file
+format.  We expect the largest simulations to output about 100--200 TB
+each in plotfiles, putting the storage needs at about 800 TB in year
+1, rising to 1 PB in year 3.  We will save plotfiles for as long as
+needed to finish the analysis and publication of the results.  Only a
+minimal set of checkpoint files will be archived.  Where possible, we
+will store output in single precision to conserve space.
 
+\paragraph{\flash: }
 
+\paragraph{\chimera: }
 
 
 \subsection{Parallel Performance}
@@ -287,7 +291,9 @@ both problems, our plans have us increasing the reaction network in
 later years---this will only improve scaling since the network is purely
 local physics.
 
-{\bf \castro}: For \castro, Figure~\ref{fig:scaling} (top-right) shows a
+\paragraph{\castro: }
+%
+ For \castro, Figure~\ref{fig:scaling} (top-right) shows a  \MarginPar{Mike and Max will update}
 weak scaling study where we put a WD on the adaptive grid and
 simulated hydrodynamics with self-gravity using a monopole
 approximation---this is representative of the sub-Ch
@@ -325,9 +331,11 @@ and move to larger core counts as it evolves.  The addition of burning
 in year 2 will greatly increase the local physics, further improving
 the scaling.
 
+\paragraph{\flash: } \MarginPar{Tom---do you have \#s specific to your problem?}
 
+\paragraph{\chimera: } \MarginPar{Bronson}
 
-{\bf I/O}: 
+\paragraph{I/O: } 
 %
 We directly measured the time to output from
 \maestro\ on titan, writing a 50~GB plotfile at a data rate
