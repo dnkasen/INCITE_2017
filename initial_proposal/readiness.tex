@@ -85,12 +85,14 @@ requiring $\sim 20$\% of the machine, and our wide range of concurrent
 moderately-sized studies for the proposed simulations will utilize
 more than 20\% of the total machine.  Finally, we have been investing
 our time in porting our microphysics to the GPUs.  This is essential
-to implementing the physics we require.  A proof-of-concept
-running on titan is shown below.  This will speed up some of the more
-time-intensive parts of our simulations and enable new science (in
-particular, bigger reaction networks).  For this investment to payoff,
-we need a machine with GPUs on all of the nodes---titan has been our
-target.  Only INCITE resources meet these needs.
+to implementing the physics we require.  We have worked in close
+collaboration with the staff at OLCF to get our codes running with
+OpenACC.  A the moment, our microphysics solvers achieve atleast
+parity on the GPUs when compared to full-node performance with OpenMP,
+and in some cases, are sped up by a factor of a few.  For this
+investment to payoff, we need a machine with GPUs on all of the
+nodes---titan has been our target.  Only INCITE resources meet these
+needs.
 
 %% Summarize the requirement that best exemplifies the proposed
 %% computational work. Leadership targets in the INCITE program typically
@@ -106,156 +108,6 @@ target.  Only INCITE resources meet these needs.
 %% \end{enumerate}
 
 %% 20 \% of titan is currently about 3738 nodes (59,808 cores + GPUs)...
-
-\subsection{Parallel Performance}
-
-%% Provide direct evidence, {\bf including supporting quantitative data},
-%% for your production application's parallel performance for the
-%% intended research simulations. Ideally, the proposing team will have
-%% generated the data. If you cite work by others, explain why it is
-%% applicable here. You should use the application code you intend for
-%% the production work, not a related code. Data for sample systems not
-%% related to the intended research is undesirable. Performance
-%% benchmarking should reflect all I/O requirements. Parallel performance
-%% data in either strong or weak scaling mode must be provided. Explain
-%% how the strong or weak scaling applies to the proposed work. See the
-%% examples at the end of this document.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.49\linewidth]{titan_xrb_scaling}
-\includegraphics[width=0.49\linewidth]{edison-wdmerger-scaling.eps}
-\caption{\label{fig:scaling} (top left) \maestro\ strong scaling for
-  the XRB problem.  Two problem sizes are shown.  In each case, the
-  time to advance the solution is the average of 10 steps.  Comparing
-  the two problem sizes shows the weak scaling.  The turn-up at the
-  highest core count for each problem size is NUMA-related---going
-  from 1 MPI task per socket to 1 MPI task per node (right)
-  \castro\ strong scaling for the initial (non-interacting) stage of
-  the WDWD problem, run on the NERSC Edison machine.  This solves the
-  full Poisson problem using multigrid with isolated boundary
-  conditions.}
-\end{figure}
-
-%% In year 1, the majority of our jobs will use \maestro, so we focused in
-%% detail in obtaining real-world scaling numbers on titan for the main
-%% year 1 jobs.
-
-{\bf \maestro}:
-%
-Figure~\ref{fig:scaling} (top-left) shows the strong scaling
-behavior for our \maestro\ XRB problem on titan.  A subset of
-this same information is shown in a speedup plot as well (Figure~\ref{fig:speedup}).
-For \maestro\ strong
-scaling, we explored two problem sizes (a 3D XRB with a domain
-of 384$\times$384$\times$768 zones, and one that is twice as wide in
-each lateral direction, $768^3$).  For the smaller size, we did three
-different domain decompositions---breaking it up into 432 $64^3$
-sub-grids, 1024 $48^3$ sub-grids, or 3456 $32^3$ sub-grids (the
-different color lines show these different decompositions).  We always
-assigned one grid per MPI task and experimented with 1, 4, 8, or 16
-OpenMP threads per MPI task.  We also explored the number of CPUs per
-compute unit (since two titan CPUs share a single floating point unit
-in the compute unit).  We find that only using one CPU per compute
-unit results in about a 30\% performance gain, but it does not affect
-the scalability.  We see that we get the best scaling with the larger
-sub-grids ($64^3$ and $48^3$), and that $32^3$ does not thread well
-for our application.  Furthermore, we see that with the large grid
-sizes, we get good strong scaling over a decade increase in processor
-count.  Note, we did not explore assigning tasks to specific NUMA nodes
-in this test.  Finally, it seems that using 16 threads incurs a slight performance
-penalty over lower thread counts.  
-
-For the bigger job, we only did a single decomposition ($48^3$ grids)
-using all CPUs on the compute units.  This run has $4\times$ as much
-work and is run on $4\times$ the number of processors as the
-corresponding smaller job.  Looking at the first point in the curve
-and comparing to the corresponding point in the smaller-job-size
-curve, we see that we have excellent weak scaling as we increase the
-job size.  The strong scaling curve for this larger problem
- shows that \maestro\ is reaching up to effective use
-of 20\% of the machine.  Some of the XRB runs in year 2 will be larger
-domains still.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.48\linewidth]{speedup}
-\begin{minipage}[b]{0.5\linewidth}
-\caption{\label{fig:speedup} Speed-up plot for the \maestro\
-and \castro\ strong scaling data.  For the \maestro\ runs,
-we only show the $48^3$ grid case using all CPUs on a compute
-unit (-j 2)}
-\end{minipage}
-\end{figure}
-
-The low Mach number constraint in imposed through a divergence
-constraint on the velocity field.
-\maestro\ uses two different multigrid solvers in the algorithm to
-enforce this constraint.  At
-the half-time, a cell-centered multigrid solver enforces the low Mach
-divergence constraint on the velocities that go into the fluxes.  At
-the final time, a node-centered (nodal) multigrid solver enforces
-this constraint on the final velocity field.
-Finer-grained timers tell us that the main scaling bottleneck is in
-the nodal multigrid solver.  We have a plan to improve this scaling
-that we expect to implement in the near future---we discuss it 
-in section 3.5 below.  We note that this test corresponds to the 
-proposed XRB simulations, which will run in exactly the fashion
-tested here.  The sub-Ch and URCA \maestro\ simulations will exercise the
-same parts of \maestro\ and we would expect similar scaling.  For
-both problems, our plans have us increasing the reaction network in
-later years---this will only improve scaling since the network is purely
-local physics.
-
-{\bf \castro}: For \castro, Figure~\ref{fig:scaling} (top-right) shows a
-weak scaling study where we put a WD on the adaptive grid and
-simulated hydrodynamics with self-gravity using a monopole
-approximation---this is representative of the sub-Ch
-\castro\ simulations proposed.  This was run on the pre-titan hardware
-(jaguarpf).  We considered both a single level and a two-level case
-where the coarse resolution is equivalent to the single level case.
-Both scale well to approximately 200K processors.  We note that the
-2-level case does approximately three times the work of the single
-level case.  The data shows an overhead of approximately 15-20\% for
-AMR; however, achieving the same resolution as the two-level
-simulation with a uniform grid would be a factor of 16 more than the
-single level example treated here.
-
-Our scaling numbers for the WDWD problem consider the initial stage,
-when the stars are not yet interacting.  This is shown in the bottom
-left panel of Figure~\ref{fig:scaling} and in the speedup plot, Figure~\ref{fig:speedup}.
-The calculations were run on the NERSC Edison
-platform, a Cray machine that shares many characteristics with titan.
-This problem uses 3 levels in the grid hierarchy, level 0 is $480^3$,
-level 1 is $2\times$ finer than level 0, and level 2 is $4\times$
-finer than level 1, giving us an effective grid of $3840^3$.  This is
-typical of the size problem we will want to run.  Gravity is done
-using a full Poisson solve with multigrid, with the isolated boundary
-conditions constructed by doing a multipole expansion (up to $l=6$) on
-the coarsest grid.  \castro\ and \maestro\ share the same
-cell-centered multigrid solver from \boxlib, and our early numbers
-show that the gravity solve with isolated boundary conditions takes
-approximately 25\% of the runtime for a WDWD problem where the stars
-have not yet begun interacting.  We scale for over a decade in core count.  At high core counts, we become work
-starved---there are too few grids at the fine level to redistribute equally.  As the stars interact, many more grids will be created
-(about an order-of-magnitude increase is expected), and this will
-improve the scaling and allow us to move to higher core counts.  Our
-plan is therefore to start this problem on a moderate number of cores
-and move to larger core counts as it evolves.  The addition of burning
-in year 2 will greatly increase the local physics, further improving
-the scaling.
-
-
-
-{\bf I/O}: 
-%
-We directly measured the time to output from
-\maestro\ on titan, writing a 50~GB plotfile at a data rate
-ranging from 4--12 GB/s.  We note that I/O takes less than 1\% of our
-runtime, and it will not be an issue for the proposed runs.
-As \castro\ uses a similar I/O strategy, we expect it to attain the
-same performance.  All of our codes have checkpoint/restart capability 
-to make effective use of titan's queue system.
 
 
 \subsection{Computational Approach}
@@ -345,6 +197,145 @@ analysis and publication of the results.  Only a minimal set of checkpoint
 files will be archived.  Where possible, we will store output in single precision
 to conserve space.
 
+
+
+
+\subsection{Parallel Performance}
+
+%% Provide direct evidence, {\bf including supporting quantitative data},
+%% for your production application's parallel performance for the
+%% intended research simulations. Ideally, the proposing team will have
+%% generated the data. If you cite work by others, explain why it is
+%% applicable here. You should use the application code you intend for
+%% the production work, not a related code. Data for sample systems not
+%% related to the intended research is undesirable. Performance
+%% benchmarking should reflect all I/O requirements. Parallel performance
+%% data in either strong or weak scaling mode must be provided. Explain
+%% how the strong or weak scaling applies to the proposed work. See the
+%% examples at the end of this document.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.49\linewidth]{titan_xrb_scaling}
+\includegraphics[width=0.49\linewidth]{edison-wdmerger-scaling.eps}
+\caption{\label{fig:scaling} (top left) \maestro\ strong scaling for
+  the XRB problem.  Two problem sizes are shown.  In each case, the
+  time to advance the solution is the average of 10 steps.  Comparing
+  the two problem sizes shows the weak scaling.  The turn-up at the
+  highest core count for each problem size is NUMA-related---going
+  from 1 MPI task per socket to 1 MPI task per node (right)
+  \castro\ strong scaling for the initial (non-interacting) stage of
+  the WDWD problem, run on the NERSC Edison machine.  This solves the
+  full Poisson problem using multigrid with isolated boundary
+  conditions.}
+\end{figure}
+
+%% In year 1, the majority of our jobs will use \maestro, so we focused in
+%% detail in obtaining real-world scaling numbers on titan for the main
+%% year 1 jobs.
+
+\paragraph{\maestro: }
+%
+Figure~\ref{fig:scaling} shows the strong scaling behavior for our
+\maestro\ XRB problem on titan.  A subset of this same information is
+shown in a speedup plot as well (Figure~\ref{fig:speedup}).
+For \MarginPar{need to update speedup} \maestro\ strong scaling, we
+explored two problem sizes (a 3D XRB with a domain of
+384$\times$384$\times$768 zones, and one that is twice as wide in each
+lateral direction, $768^3$).  We always assigned one grid per MPI task
+and experimented with 1, 4, 8, or 16 OpenMP threads per MPI task.  We
+see that we get good strong scaling over a decade increase in
+processor count.  Note, we did not explore assigning tasks to specific
+NUMA nodes in this test.  Finally, it seems that using 16 threads
+incurs a slight performance penalty over lower thread counts.  The
+bigger job has $4\times$ as much work and is run on $4\times$ the
+number of processors as the corresponding smaller job.  Looking at the
+first point in the curve and comparing to the corresponding point in
+the smaller-job-size curve, we see that we have excellent weak scaling
+as we increase the job size.  The strong scaling curve for this larger
+problem shows that \maestro\ is reaching up to effective use of 20\%
+of the machine.  Oue largest XRB runs will be atleast as large as the
+large domain studied here.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.48\linewidth]{speedup}
+\begin{minipage}[b]{0.5\linewidth}
+\caption{\label{fig:speedup} Speed-up plot for the \maestro\
+and \castro\ strong scaling data.  For the \maestro\ runs,
+we only show the $48^3$ grid case using all CPUs on a compute
+unit (-j 2)}
+\end{minipage}
+\end{figure}
+
+The low Mach number constraint in imposed through a divergence
+constraint on the velocity field.
+\maestro\ uses two different multigrid solvers in the algorithm to
+enforce this constraint.  At
+the half-time, a cell-centered multigrid solver enforces the low Mach
+divergence constraint on the velocities that go into the fluxes.  At
+the final time, a node-centered (nodal) multigrid solver enforces
+this constraint on the final velocity field.
+Finer-grained timers tell us that the main scaling bottleneck is in
+the nodal multigrid solver.  We have a plan to improve this scaling
+that we expect to implement in the near future---we discuss it 
+in section 3.5 below.  We note that this test corresponds to the 
+proposed XRB simulations, which will run in exactly the fashion
+tested here.  The sub-Ch and URCA \maestro\ simulations will exercise the
+same parts of \maestro\ and we would expect similar scaling.  For
+both problems, our plans have us increasing the reaction network in
+later years---this will only improve scaling since the network is purely
+local physics.
+
+{\bf \castro}: For \castro, Figure~\ref{fig:scaling} (top-right) shows a
+weak scaling study where we put a WD on the adaptive grid and
+simulated hydrodynamics with self-gravity using a monopole
+approximation---this is representative of the sub-Ch
+\castro\ simulations proposed.  This was run on the pre-titan hardware
+(jaguarpf).  We considered both a single level and a two-level case
+where the coarse resolution is equivalent to the single level case.
+Both scale well to approximately 200K processors.  We note that the
+2-level case does approximately three times the work of the single
+level case.  The data shows an overhead of approximately 15-20\% for
+AMR; however, achieving the same resolution as the two-level
+simulation with a uniform grid would be a factor of 16 more than the
+single level example treated here.
+
+Our scaling numbers for the WDWD problem consider the initial stage,
+when the stars are not yet interacting.  This is shown in the bottom
+left panel of Figure~\ref{fig:scaling} and in the speedup plot, Figure~\ref{fig:speedup}.
+The calculations were run on the NERSC Edison
+platform, a Cray machine that shares many characteristics with titan.
+This problem uses 3 levels in the grid hierarchy, level 0 is $480^3$,
+level 1 is $2\times$ finer than level 0, and level 2 is $4\times$
+finer than level 1, giving us an effective grid of $3840^3$.  This is
+typical of the size problem we will want to run.  Gravity is done
+using a full Poisson solve with multigrid, with the isolated boundary
+conditions constructed by doing a multipole expansion (up to $l=6$) on
+the coarsest grid.  \castro\ and \maestro\ share the same
+cell-centered multigrid solver from \boxlib, and our early numbers
+show that the gravity solve with isolated boundary conditions takes
+approximately 25\% of the runtime for a WDWD problem where the stars
+have not yet begun interacting.  We scale for over a decade in core count.  At high core counts, we become work
+starved---there are too few grids at the fine level to redistribute equally.  As the stars interact, many more grids will be created
+(about an order-of-magnitude increase is expected), and this will
+improve the scaling and allow us to move to higher core counts.  Our
+plan is therefore to start this problem on a moderate number of cores
+and move to larger core counts as it evolves.  The addition of burning
+in year 2 will greatly increase the local physics, further improving
+the scaling.
+
+
+
+{\bf I/O}: 
+%
+We directly measured the time to output from
+\maestro\ on titan, writing a 50~GB plotfile at a data rate
+ranging from 4--12 GB/s.  We note that I/O takes less than 1\% of our
+runtime, and it will not be an issue for the proposed runs.
+As \castro\ uses a similar I/O strategy, we expect it to attain the
+same performance.  All of our codes have checkpoint/restart capability 
+to make effective use of titan's queue system.
 
 
 \subsection{Developmental Work}
